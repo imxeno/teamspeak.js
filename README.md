@@ -26,4 +26,4 @@ This library allows you to interact with TeamSpeak's Server Query interface on a
 
 ## Warning
 
-The **project** is still **incomplete** and may be missing some key features ~~(for example: *code*)~~. **It is not available in NPM registry** as there is no complete and/or stable version provided yet.
+The **project** is still **incomplete** and may be missing some key features ~~(for example: *code*)~~. I would advise you **not to use it** in its current state.
