@@ -6,6 +6,9 @@
   "repository": "https://github.com/imxeno/teamspeak.js.git",
   "author": "Piotr Adamczyk <xeno@xeno.yt>",
   "license": "Apache-2.0",
+  "engines" : { 
+    "node" : ">=8.9.0"
+  },
   "scripts": {
     "test": "eslint --ignore-path .gitignore ."
   },
