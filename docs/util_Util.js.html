@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: node/Client.js</title>
+    <title>JSDoc: Source: util/Util.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: node/Client.js</h1>
+    <h1 class="page-title">Source: util/Util.js</h1>
 
     
 
@@ -26,34 +26,48 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const TSJSNodeAbstract = require("./Abstract");
+            <pre class="prettyprint source linenums"><code>const Constants = require("./Constants");
 
-class TSJSNodeClient extends TSJSNodeAbstract {
+class Util {
   /**
-   * Constructs a new client node
+   * This class cannot be instantiated. The constructor will always throw.
    * @constructor
-   * @param {TSJSNodeServer} server
    */
-  constructor(server) {
-    super(server);
+  constructor() {
+    throw new Error(
+      `The ${this.constructor.name} class may not be instantiated.`
+    );
   }
   /**
-   * Gets parent server node
-   * @returns {TSJSNodeServer}
+   * Escapes string using {@link EscapePatterns}
+   * @static
+   * @param  {string} str a string to escape
+   * @returns {string} escaped string
    */
-  getServer() {
-    return this.parent;
+  static escapeString(str) {
+    let output = str;
+    Constants.EscapePatterns.forEach(pattern => {
+      output = str.replace(pattern[0], pattern[1]);
+    });
+    return output;
   }
+
   /**
-   * Gets parent host node
-   * @returns {TSJSNodeServer}
+   * Unescapes string using {@link EscapePatterns}
+   * @static
+   * @param  {string} str a string to unescape
+   * @returns {string} unescaped string
    */
-  getHost() {
-    return this.getServer().getHost();
+  static unescapeString(str) {
+    let output = str;
+    Constants.EscapePatterns.forEach(pattern => {
+      output = str.replace(pattern[1], pattern[0]);
+    });
+    return output;
   }
 }
 
-module.exports = TSJSNodeClient;
+module.exports = Util;
 </code></pre>
         </article>
     </section>
