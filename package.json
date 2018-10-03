@@ -11,7 +11,7 @@
   },
   "scripts": {
     "docgen": "jsdoc -r ./lib README.md -d ./docs",
-    "test": "eslint --ignore-path .gitignore ."
+    "test": "eslint ."
   },
   "devDependencies": {
     "eslint": "^5.6.1",
