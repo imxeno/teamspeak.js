@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="#"><img src="https://github.com/imxeno/teamspeak.js/blob/master/docs/logo.png" alt="teamspeak.js logo" title="teamspeak.js" height="200" /></a>
+  <a href="#"><img src="https://github.com/imxeno/teamspeak.js/raw/master/docs/logo.png" alt="teamspeak.js logo" title="teamspeak.js" height="200" /></a>
   <p><!-- separator --></p>
   <p>
     <a href="">
