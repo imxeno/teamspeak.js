@@ -1,6 +1,6 @@
 {
   "name": "teamspeak.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A powerful JavaScript library for interacting with the TeamSpeak's Server Query interface",
   "main": "index.js",
   "repository": "https://github.com/imxeno/teamspeak.js.git",
