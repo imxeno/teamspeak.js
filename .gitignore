@@ -59,3 +59,7 @@ typings/
 
 # next.js build output
 .next
+
+# Temporarily ignore examples (it is certainly not a best
+# practice but I am using this directory for testing now)
+examples/
