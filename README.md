@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="#"><img src="https://github.com/imxeno/teamspeak.js/raw/master/docs/logo.png" alt="teamspeak.js logo" title="teamspeak.js" height="200" /></a>
+  <a href="https://github.com/imxeno/teamspeak.js"><img src="https://github.com/imxeno/teamspeak.js/raw/master/docs/logo.png" alt="teamspeak.js logo" title="teamspeak.js" height="200" /></a>
   <p><!-- separator --></p>
   <p>
     <a href="">
@@ -26,4 +26,4 @@ This library allows you to interact with TeamSpeak's Server Query interface on a
 
 ## Warning
 
-The **project** is still **incomplete** and may be missing some key features ~~(for example: *code*)~~. I would advise you **not to use it** in its current state.
+The **project** is still **incomplete** and may be missing some key features ~~(for example: _code_)~~. I would advise you **not to use it** in its current state.
