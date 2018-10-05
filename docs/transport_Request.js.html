@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: TSJSNodeServer</title>
+    <title>JSDoc: Source: transport/Request.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,292 +17,44 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: TSJSNodeServer</h1>
+    <h1 class="page-title">Source: transport/Request.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>TSJSNodeServer<span class="signature">(host)</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    
-    <h4 class="name" id="TSJSNodeServer"><span class="type-signature"></span>new TSJSNodeServer<span class="signature">(host)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Constructs a new server node
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>host</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="TSJSNodeHost.html">TSJSNodeHost</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_Server.js.html">node/Server.js</a>, <a href="node_Server.js.html#line9">line 9</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getHost"><span class="type-signature"></span>getHost<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="TSJSNodeServer.html">TSJSNodeServer</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Gets parent host node
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_Server.js.html">node/Server.js</a>, <a href="node_Server.js.html#line16">line 16</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="TSJSNodeServer.html">TSJSNodeServer</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class TSJSRequest {
+  /**
+   * Constructs a new instance of TSJSRequest
+   * @constructor
+   * @param {string} method ServerQuery method name
+   * @param {object} args method call arguments
+   * @param {function} resolve Promise resolve function
+   * @param {function} reject Promise reject function
+   */
+  constructor(method, args, resolve, reject) {
+    this.method = method;
+    this.args = args;
+    this.resolve = resolve;
+    this.reject = reject;
+    this.response = [];
+  }
+  /**
+   * Stringifies TSJSRequest to a form in which it can be send to ServerQuery.
+   * @returns {string} stringified request
+   */
+  toString() {
+    return this.method;
+  }
+}
+
+module.exports = TSJSRequest;
+</code></pre>
+        </article>
+    </section>
 
 
 

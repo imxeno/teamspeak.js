@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: TSJSNodeChannel</title>
+    <title>JSDoc: Class: TSJSServerQuery</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: TSJSNodeChannel</h1>
+    <h1 class="page-title">Class: TSJSServerQuery</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>TSJSNodeChannel<span class="signature">(server)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>TSJSServerQuery<span class="signature">(options)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,7 +41,7 @@
     
 
     
-    <h4 class="name" id="TSJSNodeChannel"><span class="type-signature"></span>new TSJSNodeChannel<span class="signature">(server)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="TSJSServerQuery"><span class="type-signature"></span>new TSJSServerQuery<span class="signature">(options)</span><span class="type-signature"></span></h4>
     
 
     
@@ -49,7 +49,7 @@
 
 
 <div class="description">
-    Constructs a new channel node
+    Constructs new TSJSServerQuery object
 </div>
 
 
@@ -85,13 +85,13 @@
 
         <tr>
             
-                <td class="name"><code>server</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="TSJSNodeServer.html">TSJSNodeServer</a></span>
+<span class="param-type">object</span>
 
 
             
@@ -101,7 +101,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">options to override (defaults: <a href="global.html#ServerQueryOptions">ServerQueryOptions</a>)</td>
         </tr>
 
     
@@ -142,7 +142,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_Channel.js.html">node/Channel.js</a>, <a href="node_Channel.js.html#line9">line 9</a>
+        <a href="transport_ServerQuery.js.html">transport/ServerQuery.js</a>, <a href="transport_ServerQuery.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -196,7 +196,7 @@
     
 
     
-    <h4 class="name" id="getHost"><span class="type-signature"></span>getHost<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="TSJSNodeServer.html">TSJSNodeServer</a>}</span></h4>
+    <h4 class="name" id="connect"><span class="type-signature"></span>connect<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -204,7 +204,7 @@
 
 
 <div class="description">
-    Gets parent host node
+    Attempts to establish connection to the server
 </div>
 
 
@@ -248,7 +248,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_Channel.js.html">node/Channel.js</a>, <a href="node_Channel.js.html#line23">line 23</a>
+        <a href="transport_ServerQuery.js.html">transport/ServerQuery.js</a>, <a href="transport_ServerQuery.js.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -271,24 +271,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="TSJSNodeServer.html">TSJSNodeServer</a></span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -300,7 +282,7 @@
     
 
     
-    <h4 class="name" id="getServer"><span class="type-signature"></span>getServer<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="TSJSNodeServer.html">TSJSNodeServer</a>}</span></h4>
+    <h4 class="name" id="send"><span class="type-signature">(async) </span>send<span class="signature">(method, args)</span><span class="type-signature"></span></h4>
     
 
     
@@ -308,7 +290,7 @@
 
 
 <div class="description">
-    Gets parent server node
+    Sends raw string to the ServerQuery interface
 </div>
 
 
@@ -317,6 +299,78 @@
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>method</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">method that will be called</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">arguments for the call</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -352,7 +406,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_Channel.js.html">node/Channel.js</a>, <a href="node_Channel.js.html#line16">line 16</a>
+        <a href="transport_ServerQuery.js.html">transport/ServerQuery.js</a>, <a href="transport_ServerQuery.js.html#line71">line 71</a>
     </li></ul></dd>
     
 
@@ -375,24 +429,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="TSJSNodeServer.html">TSJSNodeServer</a></span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 

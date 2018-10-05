@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: TSJSNodeServer</title>
+    <title>JSDoc: Source: transport/ServerQuery.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,292 +17,108 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: TSJSNodeServer</h1>
+    <h1 class="page-title">Source: transport/ServerQuery.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>TSJSNodeServer<span class="signature">(host)</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    
-    <h4 class="name" id="TSJSNodeServer"><span class="type-signature"></span>new TSJSNodeServer<span class="signature">(host)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Constructs a new server node
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>host</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="TSJSNodeHost.html">TSJSNodeHost</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_Server.js.html">node/Server.js</a>, <a href="node_Server.js.html#line9">line 9</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getHost"><span class="type-signature"></span>getHost<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="TSJSNodeServer.html">TSJSNodeServer</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Gets parent host node
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_Server.js.html">node/Server.js</a>, <a href="node_Server.js.html#line16">line 16</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="TSJSNodeServer.html">TSJSNodeServer</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const net = require("net");
+const readline = require("readline");
+const EventEmitter = require("events");
+
+const Defaults = require("../util/Defaults");
+const Util = require("../util/Util");
+const TSJSRequest = require("./Request");
+const TSJSResponse = require("./Response");
+
+class TSJSServerQuery extends EventEmitter {
+  /**
+   * Constructs new TSJSServerQuery object
+   * @constructor
+   * @param {object} options options to override (defaults: {@link ServerQueryOptions})
+   */
+  constructor(options) {
+    super();
+    this.options = Util.overrideOptions(options, Defaults.ServerQueryOptions);
+    this.socket = new net.Socket();
+    this.reader = readline.createInterface(this.socket);
+    this.reader.on("line", line => this._onLine(line));
+    this.requests = [];
+  }
+
+  /**
+   * Attempts to establish connection to the server
+   */
+  connect() {
+    this.socket.connect(
+      this.options.port,
+      this.options.host
+    );
+  }
+
+  /**
+   * ServerQuery socket reader line handler
+   * @private
+   */
+  _onLine(data) {
+    if (data.length === 0) return;
+    if (this.requests.length === 0) return;
+    const request = this.requests[0];
+    const response = new TSJSResponse(data);
+    request.response.push(response);
+    if (response.isError()) {
+      if (response.id === "0") {
+        request.resolve(request.response[0]);
+      } else {
+        request.reject(response);
+      }
+      this.requests.shift();
+      this._process();
+    }
+  }
+
+  /**
+   * Sends raw string to the ServerQuery interface
+   * @private
+   * @param {Buffer | string} data data to send
+   */
+  _sendRaw(data) {
+    if (data.length > 0 &amp;&amp; data[data.length - 1] !== "\n") data += "\n";
+    this.socket.write(data);
+  }
+
+  /**
+   * Sends raw string to the ServerQuery interface
+   * @param {string} method method that will be called
+   * @param {object} args arguments for the call
+   */
+  async send(method, args) {
+    return new Promise((resolve, reject) => {
+      const startProcessing = this.requests.length === 0;
+      this.requests.push(new TSJSRequest(method, args, resolve, reject));
+      if (startProcessing) this._process();
+    });
+  }
+
+  /**
+   * Tries to process requests in request queue
+   * @private
+   */
+  _process() {
+    if (this.requests.length === 0) return;
+    const request = this.requests[0];
+    this._sendRaw(request.toString());
+  }
+}
+
+module.exports = TSJSServerQuery;
+</code></pre>
+        </article>
+    </section>
 
 
 
