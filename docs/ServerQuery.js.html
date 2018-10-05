@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: node/Host.js</title>
+    <title>JSDoc: Source: ServerQuery.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: node/Host.js</h1>
+    <h1 class="page-title">Source: ServerQuery.js</h1>
 
     
 
@@ -26,19 +26,19 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const TSJSNodeAbstract = require("./Abstract");
+            <pre class="prettyprint source linenums"><code>const TSJSTransportServerQuery = require("./transport/ServerQuery");
 
-class TSJSNodeHost extends TSJSNodeAbstract {
+class TSJSServerQuery extends TSJSTransportServerQuery {
   /**
-   * Constructs a new host node
-   * @constructor
+   * Constructs a new instance of TSJSServerQuery
+   * @param {object} options options to override in {@link TSJSTransportServerQuery} (defaults: {@link ServerQueryOptions})
    */
-  constructor() {
-    super(null);
+  constructor(options) {
+    super(options);
   }
 }
 
-module.exports = TSJSNodeHost;
+module.exports = TSJSServerQuery;
 </code></pre>
         </article>
     </section>

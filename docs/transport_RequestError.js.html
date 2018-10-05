@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: node/Host.js</title>
+    <title>JSDoc: Source: transport/RequestError.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: node/Host.js</h1>
+    <h1 class="page-title">Source: transport/RequestError.js</h1>
 
     
 
@@ -26,19 +26,23 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const TSJSNodeAbstract = require("./Abstract");
-
-class TSJSNodeHost extends TSJSNodeAbstract {
+            <pre class="prettyprint source linenums"><code>class TSJSRequestError {
   /**
-   * Constructs a new host node
+   * Constructs an instance of TSJSRequestError from TSJSResponse
    * @constructor
+   * @param {TSJSResponse} response response of error-type
    */
-  constructor() {
-    super(null);
+  constructor(response) {
+    this.response = response;
+    const responseObject = response.rawObject();
+    for (const k in responseObject) {
+      if (k === "error") continue;
+      this[k] = responseObject[k];
+    }
   }
 }
 
-module.exports = TSJSNodeHost;
+module.exports = TSJSRequestError;
 </code></pre>
         </article>
     </section>
