@@ -11,7 +11,7 @@
   },
   "scripts": {
     "docgen": "jsdoc -r ./lib README.md -d ./docs",
-    "test": "eslint ."
+    "test": "eslint index.js ./lib"
   },
   "devDependencies": {
     "eslint": "^5.6.1",
