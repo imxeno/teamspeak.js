@@ -1,12 +1,16 @@
 TODO
 ====
 
-Implementation needed
----------------------
+Functionalities
+---------------
+
+- creating TSJSNodeServer from port (preferably by implementing
+TSJSServerQuery.getServerByPort)
+
+ServerQuery commands that need implementation
+---------------------------------------------
 
 - quit
-- login
-- logout
 - version
 - hostinfo
 - instanceinfo
