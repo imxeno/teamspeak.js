@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: ServerQuery.js</title>
+    <title>JSDoc: Source: error/ConnectionError.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: ServerQuery.js</h1>
+    <h1 class="page-title">Source: error/ConnectionError.js</h1>
 
     
 
@@ -26,30 +26,36 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const TSJSTransportServerQuery = require("./transport/ServerQuery");
+            <pre class="prettyprint source linenums"><code>const TSJSError = require('./Error');
 
-class TSJSServerQuery extends TSJSTransportServerQuery {
+class TSJSConnectionError extends TSJSError {
   /**
-   * Constructs a new instance of TSJSServerQuery
-   * @param {object} options options to override in {@link TSJSTransportServerQuery} (defaults: {@link ServerQueryOptions})
+   * Constructs an instance of TSJSConnectionError from an {@link TSJSConnectionErrorCode}
+   * @constructor
+   * @param {Error} error native error
    */
-  constructor(options) {
-    super(options);
+  constructor(error) {
+      super();
+      this.code = "CONNERR";
+      this.message = error.message;
   }
-
   /**
-   * Authenticates server query interface
-   * @param {string} client_login_name Server Query account username
-   * @param {string} client_login_password Server Query account password
-   * @returns {Promise&lt;TSJSResponse>} promise which resolves to TSJSResponse on success
+   * Gets the connection error code
+   * @returns {string} actually a const string "CONERR";
    */
-  async login(client_login_name, client_login_password) {
-    return this.send("login", { client_login_name, client_login_password });
+  getCode() {
+    return this.code;
   }
-
+  /**
+   * Gets a really user-friendly error message
+   * @returns {string} user-friendly error message
+   */
+  getMessage() {
+    return this.message;
+  }
 }
 
-module.exports = TSJSServerQuery;
+module.exports = TSJSConnectionError;
 </code></pre>
         </article>
     </section>

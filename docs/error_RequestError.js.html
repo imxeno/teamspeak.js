@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: ServerQuery.js</title>
+    <title>JSDoc: Source: error/RequestError.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: ServerQuery.js</h1>
+    <h1 class="page-title">Source: error/RequestError.js</h1>
 
     
 
@@ -26,30 +26,42 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const TSJSTransportServerQuery = require("./transport/ServerQuery");
+            <pre class="prettyprint source linenums"><code>const TSJSError = require('./Error');
 
-class TSJSServerQuery extends TSJSTransportServerQuery {
+class TSJSRequestError extends TSJSError {
   /**
-   * Constructs a new instance of TSJSServerQuery
-   * @param {object} options options to override in {@link TSJSTransportServerQuery} (defaults: {@link ServerQueryOptions})
+   * Constructs an instance of TSJSRequestError from TSJSResponse
+   * @constructor
+   * @param {TSJSResponse} response response of error-type
    */
-  constructor(options) {
-    super(options);
+  constructor(response) {
+    super();
+    const responseObject = response.rawObject();
+    this.code = "SQ" + response.id;
+    this.message = response.msg;
+    this.raw = {};
+    for (const k in responseObject) {
+      if (k === "error") continue;
+      this.raw[k] = responseObject[k];
+    }
   }
-
   /**
-   * Authenticates server query interface
-   * @param {string} client_login_name Server Query account username
-   * @param {string} client_login_password Server Query account password
-   * @returns {Promise&lt;TSJSResponse>} promise which resolves to TSJSResponse on success
+   * Gets the ServerQuery error code
+   * @returns {string} ServerQuery error code prefixed with SQ (for example SQ520)
    */
-  async login(client_login_name, client_login_password) {
-    return this.send("login", { client_login_name, client_login_password });
+  getCode() {
+    return this.code;
   }
-
+  /**
+   * Gets a not-really-always-user-friendly ServerQuery error message
+   * @returns {string} not-really-always-user-friendly ServerQuery error message
+   */
+  getMessage() {
+    return this.message;
+  }
 }
 
-module.exports = TSJSServerQuery;
+module.exports = TSJSRequestError;
 </code></pre>
         </article>
     </section>

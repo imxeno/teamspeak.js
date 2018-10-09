@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: TSJSNodeServer</title>
+    <title>JSDoc: Class: TSJSError</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: TSJSNodeServer</h1>
+    <h1 class="page-title">Class: TSJSError</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>TSJSNodeServer<span class="signature">(host)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature">(abstract) </span></span>TSJSError<span class="signature">(response)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,7 +41,7 @@
     
 
     
-    <h4 class="name" id="TSJSNodeServer"><span class="type-signature"></span>new TSJSNodeServer<span class="signature">(host)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="TSJSError"><span class="type-signature">(abstract) </span>new TSJSError<span class="signature">(response)</span><span class="type-signature"></span></h4>
     
 
     
@@ -49,7 +49,7 @@
 
 
 <div class="description">
-    Constructs a new server node
+    Constructs an instance of TSJSError
 </div>
 
 
@@ -85,13 +85,13 @@
 
         <tr>
             
-                <td class="name"><code>host</code></td>
+                <td class="name"><code>response</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="TSJSNodeHost.html">TSJSNodeHost</a></span>
+<span class="param-type"><a href="TSJSResponse.html">TSJSResponse</a></span>
 
 
             
@@ -101,7 +101,7 @@
 
             
 
-            <td class="description last">parent host node</td>
+            <td class="description last">response of error-type</td>
         </tr>
 
     
@@ -142,7 +142,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_Server.js.html">node/Server.js</a>, <a href="node_Server.js.html#line9">line 9</a>
+        <a href="error_Error.js.html">error/Error.js</a>, <a href="error_Error.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -196,7 +196,7 @@
     
 
     
-    <h4 class="name" id="getHost"><span class="type-signature"></span>getHost<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="TSJSNodeServer.html">TSJSNodeServer</a>}</span></h4>
+    <h4 class="name" id="getCode"><span class="type-signature">(abstract) </span>getCode<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
     
@@ -204,7 +204,7 @@
 
 
 <div class="description">
-    Gets parent host node
+    Gets a unique pseudo error code.
 </div>
 
 
@@ -248,7 +248,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_Server.js.html">node/Server.js</a>, <a href="node_Server.js.html#line16">line 16</a>
+        <a href="error_Error.js.html">error/Error.js</a>, <a href="error_Error.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -275,7 +275,8 @@
 
         
 <div class="param-desc">
-    parent host node
+    pseudo error code (error code prefixed with
+                  an identificator of the component which errored)
 </div>
 
 
@@ -286,7 +287,115 @@
     </dt>
     <dd>
         
-<span class="param-type"><a href="TSJSNodeServer.html">TSJSNodeServer</a></span>
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getMessage"><span class="type-signature">(abstract) </span>getMessage<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Gets a user-friendly message describing the error.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="error_Error.js.html">error/Error.js</a>, <a href="error_Error.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    user-friendly message describing the error
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
 
 
     </dd>

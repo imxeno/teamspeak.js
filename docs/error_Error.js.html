@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: ServerQuery.js</title>
+    <title>JSDoc: Source: error/Error.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: ServerQuery.js</h1>
+    <h1 class="page-title">Source: error/Error.js</h1>
 
     
 
@@ -26,31 +26,38 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const TSJSTransportServerQuery = require("./transport/ServerQuery");
-
-class TSJSServerQuery extends TSJSTransportServerQuery {
-  /**
-   * Constructs a new instance of TSJSServerQuery
-   * @param {object} options options to override in {@link TSJSTransportServerQuery} (defaults: {@link ServerQueryOptions})
-   */
-  constructor(options) {
-    super(options);
+            <pre class="prettyprint source linenums"><code>/**
+ * @abstract
+ */
+class TSJSError {
+    /**
+     * Constructs an instance of TSJSError
+     * @constructor
+     * @param {TSJSResponse} response response of error-type
+     */
+    constructor() {
+    }
+    /**
+     * Gets a unique pseudo error code.
+     * @abstract
+     * @returns {string} pseudo error code (error code prefixed with
+     *                   an identificator of the component which errored)
+     */
+    getCode() {
+        throw new Error("Unimplemented");
+    }
+    /**
+     * Gets a user-friendly message describing the error.
+     * @abstract
+     * @returns {string} user-friendly message describing the error
+     */
+    getMessage() {
+        throw new Error("Unimplemented");
+    }
   }
-
-  /**
-   * Authenticates server query interface
-   * @param {string} client_login_name Server Query account username
-   * @param {string} client_login_password Server Query account password
-   * @returns {Promise&lt;TSJSResponse>} promise which resolves to TSJSResponse on success
-   */
-  async login(client_login_name, client_login_password) {
-    return this.send("login", { client_login_name, client_login_password });
-  }
-
-}
-
-module.exports = TSJSServerQuery;
-</code></pre>
+  
+  module.exports = TSJSError;
+  </code></pre>
         </article>
     </section>
 
