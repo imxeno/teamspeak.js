@@ -10,7 +10,7 @@
     "node": ">=8.9.0"
   },
   "scripts": {
-    "docgen": "jsdoc -r ./lib README.md -d ./docs",
+    "jsdoc": "jsdoc -r ./lib README.md -d ./docs",
     "test": "eslint index.js ./lib"
   },
   "devDependencies": {
