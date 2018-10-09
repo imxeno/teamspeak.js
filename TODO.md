@@ -6,6 +6,7 @@ Functionalities
 
 - encapsulate version response in TSJSServerQuery.getVersion into some kind of class
 - encapsulate hostinfo response in TSJSServerQuery.getInfo into some kind of class
+- encapsulate instanceinfo response in TSJSServerQuery.getConfig into some kind of class to use instanceedit
 
 Documentation
 -------------
@@ -15,7 +16,6 @@ Documentation
 ServerQuery commands that need implementation
 ---------------------------------------------
 
-- instanceinfo
 - instanceedit
 - bindinglist
 - serverdelete
