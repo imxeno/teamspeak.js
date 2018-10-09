@@ -16,7 +16,6 @@ ServerQuery commands that need implementation
 - instanceinfo
 - instanceedit
 - bindinglist
-- serverlist
 - serveridgetbyport
 - serverdelete
 - servercreate
