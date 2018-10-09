@@ -4,9 +4,6 @@ TODO
 Functionalities
 ---------------
 
-- creating TSJSNodeServer from port (preferably by implementing
-TSJSServerQuery.getServerByPort)
-
 ServerQuery commands that need implementation
 ---------------------------------------------
 
@@ -16,7 +13,6 @@ ServerQuery commands that need implementation
 - instanceinfo
 - instanceedit
 - bindinglist
-- serveridgetbyport
 - serverdelete
 - servercreate
 - serverstart
