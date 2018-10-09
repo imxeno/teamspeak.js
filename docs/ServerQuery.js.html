@@ -27,6 +27,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>const TSJSTransportServerQuery = require("./transport/ServerQuery");
+const TSJSNodeServer = require("./node/Server");
 
 class TSJSServerQuery extends TSJSTransportServerQuery {
   /**
@@ -35,16 +36,127 @@ class TSJSServerQuery extends TSJSTransportServerQuery {
    */
   constructor(options) {
     super(options);
+    this.selectedServer = null;
   }
 
   /**
-   * Authenticates server query interface
+   * Authenticates with the TeamSpeak 3 Server instance using given ServerQuery login credentials
    * @param {string} client_login_name Server Query account username
    * @param {string} client_login_password Server Query account password
-   * @returns {Promise&lt;TSJSResponse>} promise which resolves to TSJSResponse on success
+   * @returns {Promise} promise
    */
   async login(client_login_name, client_login_password) {
-    return this.send("login", { client_login_name, client_login_password });
+    await this.send("login", { client_login_name, client_login_password });
+  }
+
+  /**
+   * Deselects the active virtual server and logs out from the server instance
+   * @returns {Promise} promise
+   */
+  async logout() {
+    await this.send("logout");
+    this.selectedServer = null;
+  }
+
+  /**
+   * Selects a server
+   * @param {Number} sid server id
+   * @returns {Promise} promise
+   */
+  async selectServer(sid) {
+    sid = parseInt(sid);
+    if(this.selectedServer === sid) return;
+    await this.send("use", { sid });
+    this.selectedServer = sid;
+  }
+
+  /**
+   * Creates a new {@link TSJSNodeServer} instance from server id
+   * @param {Number} sid server id
+   * @returns {Promise&lt;TSJSServer>} promise
+   */
+  async getServerById(sid) {
+    sid = parseInt(sid);
+    return new TSJSNodeServer(this, sid);
+  }
+
+  /**
+   * Gets server id from port
+   * @param {Number} virtualserver_port server port
+   * @returns {Promise&lt;TSJSServer>} promise
+   */
+  async getServerIdByPort(virtualserver_port) {
+    virtualserver_port = parseInt(virtualserver_port);
+    const response = await this.send("serveridgetbyport", { virtualserver_port });
+    return response.rawObject().server_id;
+  }
+
+  /**
+   * Creates a new {@link TSJSNodeServer} instance from server port
+   * @param {Number} port server port
+   * @returns {Promise&lt;TSJSServer>} promise
+   */
+  async getServerByPort(port) {
+    port = parseInt(port);
+    const sid = await this.getServerIdByPort(port);
+    return this.getServerById(sid);
+  }
+
+  /**
+   * Creates an array of {@link TSJSNodeServer} instances
+   * @param {Number} sid server id
+   * @returns {Promise&lt;Array&lt;TSJSServer>>} promise
+   */
+  async getServers() {
+    const servers = await this.send("serverlist");
+    return servers.rawArray().map((server) => { 
+      return new TSJSNodeServer(this, parseInt(server.virtualserver_id))
+    });
+  }
+
+  /**
+   * Stops the entire TeamSpeak 3 Server instance by shutting down the process
+   * @returns {Promise} promise
+   */
+  async stopProcess() {
+    await this.send("serverprocessstop");
+  }
+
+  /**
+   * Closes the ServerQuery connection to the TeamSpeak 3 Server instance
+   * @returns {Promise} promise
+   */
+  async quit() {
+    await this.send("quit");
+  }
+
+  /**
+   * Gets the servers version information including platform and build number
+   * @returns {Promise&lt;object>} promise
+   */
+  async getVersion() {
+    const response = await this.send("version");
+    return response.rawObject();
+  }
+
+  /**
+   * Gets detailed connection information about the server instance including uptime,
+   * number of virtual servers online, traffic information, etc
+   * @returns {Promise&lt;object>} promise
+   */
+  async getInfo() {
+    const response = await this.send("hostinfo");
+    return response.rawObject();
+  }
+
+  /**
+   * Displays the server instance configuration including database revision number,
+   * the file transfer port, default group IDs, etc.
+   * @returns {Promise&lt;object>} promise
+   */
+  async getConfig() {
+    const response = await this.send("instanceinfo");
+    return response.rawObject();
   }
 
 }
@@ -60,13 +172,13 @@ module.exports = TSJSServerQuery;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="TSJSConnectionError.html">TSJSConnectionError</a></li><li><a href="TSJSError.html">TSJSError</a></li><li><a href="TSJSNodeAbstract.html">TSJSNodeAbstract</a></li><li><a href="TSJSNodeChannel.html">TSJSNodeChannel</a></li><li><a href="TSJSNodeChannelGroup.html">TSJSNodeChannelGroup</a></li><li><a href="TSJSNodeClient.html">TSJSNodeClient</a></li><li><a href="TSJSNodeHost.html">TSJSNodeHost</a></li><li><a href="TSJSNodeServer.html">TSJSNodeServer</a></li><li><a href="TSJSNodeServerGroup.html">TSJSNodeServerGroup</a></li><li><a href="TSJSRequest.html">TSJSRequest</a></li><li><a href="TSJSRequestError.html">TSJSRequestError</a></li><li><a href="TSJSResponse.html">TSJSResponse</a></li><li><a href="TSJSServerQuery.html">TSJSServerQuery</a></li><li><a href="TSJSTransportServerQuery.html">TSJSTransportServerQuery</a></li><li><a href="Util.html">Util</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ClientType">ClientType</a></li><li><a href="global.html#Codec">Codec</a></li><li><a href="global.html#CodecEncryption">CodecEncryption</a></li><li><a href="global.html#ErrorPrefix">ErrorPrefix</a></li><li><a href="global.html#EscapePatterns">EscapePatterns</a></li><li><a href="global.html#EventPrefix">EventPrefix</a></li><li><a href="global.html#FileType">FileType</a></li><li><a href="global.html#GroupDBType">GroupDBType</a></li><li><a href="global.html#GroupIdentificationType">GroupIdentificationType</a></li><li><a href="global.html#GroupNameDisplayMode">GroupNameDisplayMode</a></li><li><a href="global.html#HostBannerAdjustMode">HostBannerAdjustMode</a></li><li><a href="global.html#HostMessageMode">HostMessageMode</a></li><li><a href="global.html#KickType">KickType</a></li><li><a href="global.html#LineSeparator">LineSeparator</a></li><li><a href="global.html#LogLevel">LogLevel</a></li><li><a href="global.html#PermissionCategory">PermissionCategory</a></li><li><a href="global.html#PermissionType">PermissionType</a></li><li><a href="global.html#PluginCommandTarget">PluginCommandTarget</a></li><li><a href="global.html#Reason">Reason</a></li><li><a href="global.html#ServerQueryOptions">ServerQueryOptions</a></li><li><a href="global.html#SnapshotType">SnapshotType</a></li><li><a href="global.html#TeaProtocolIdentifier">TeaProtocolIdentifier</a></li><li><a href="global.html#TextMessageTarget">TextMessageTarget</a></li><li><a href="global.html#TokenType">TokenType</a></li><li><a href="global.html#TS3MotdPrefix">TS3MotdPrefix</a></li><li><a href="global.html#TS3ProtocolIdentifier">TS3ProtocolIdentifier</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="TSJSConnectionError.html">TSJSConnectionError</a></li><li><a href="TSJSError.html">TSJSError</a></li><li><a href="TSJSNodeChannel.html">TSJSNodeChannel</a></li><li><a href="TSJSNodeChannelGroup.html">TSJSNodeChannelGroup</a></li><li><a href="TSJSNodeClient.html">TSJSNodeClient</a></li><li><a href="TSJSNodeServer.html">TSJSNodeServer</a></li><li><a href="TSJSNodeServerGroup.html">TSJSNodeServerGroup</a></li><li><a href="TSJSRequest.html">TSJSRequest</a></li><li><a href="TSJSRequestError.html">TSJSRequestError</a></li><li><a href="TSJSResponse.html">TSJSResponse</a></li><li><a href="TSJSServerQuery.html">TSJSServerQuery</a></li><li><a href="TSJSTransportServerQuery.html">TSJSTransportServerQuery</a></li><li><a href="Util.html">Util</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ClientType">ClientType</a></li><li><a href="global.html#Codec">Codec</a></li><li><a href="global.html#CodecEncryption">CodecEncryption</a></li><li><a href="global.html#ErrorPrefix">ErrorPrefix</a></li><li><a href="global.html#EscapePatterns">EscapePatterns</a></li><li><a href="global.html#EventPrefix">EventPrefix</a></li><li><a href="global.html#FileType">FileType</a></li><li><a href="global.html#GroupDBType">GroupDBType</a></li><li><a href="global.html#GroupIdentificationType">GroupIdentificationType</a></li><li><a href="global.html#GroupNameDisplayMode">GroupNameDisplayMode</a></li><li><a href="global.html#HostBannerAdjustMode">HostBannerAdjustMode</a></li><li><a href="global.html#HostMessageMode">HostMessageMode</a></li><li><a href="global.html#KickType">KickType</a></li><li><a href="global.html#LineSeparator">LineSeparator</a></li><li><a href="global.html#LogLevel">LogLevel</a></li><li><a href="global.html#PermissionCategory">PermissionCategory</a></li><li><a href="global.html#PermissionType">PermissionType</a></li><li><a href="global.html#PluginCommandTarget">PluginCommandTarget</a></li><li><a href="global.html#Reason">Reason</a></li><li><a href="global.html#ServerQueryOptions">ServerQueryOptions</a></li><li><a href="global.html#SnapshotType">SnapshotType</a></li><li><a href="global.html#TeaProtocolIdentifier">TeaProtocolIdentifier</a></li><li><a href="global.html#TextMessageTarget">TextMessageTarget</a></li><li><a href="global.html#TokenType">TokenType</a></li><li><a href="global.html#TS3MotdPrefix">TS3MotdPrefix</a></li><li><a href="global.html#TS3ProtocolIdentifier">TS3ProtocolIdentifier</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Oct 09 2018 12:03:35 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Oct 09 2018 22:32:05 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>
