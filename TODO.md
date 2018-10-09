@@ -15,7 +15,6 @@ ServerQuery commands that need implementation
 - bindinglist
 - serverdelete
 - servercreate
-- serverprocessstop
 - serverinfo
 - serverrequestconnectioninfo
 - serveredit
