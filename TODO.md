@@ -4,6 +4,13 @@ TODO
 Functionalities
 ---------------
 
+- encapsulate version response into some kind of class
+
+Documentation
+-------------
+
+- add information about needed permissions for certain actions
+
 ServerQuery commands that need implementation
 ---------------------------------------------
 
