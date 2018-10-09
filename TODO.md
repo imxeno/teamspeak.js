@@ -15,7 +15,6 @@ Documentation
 ServerQuery commands that need implementation
 ---------------------------------------------
 
-- hostinfo
 - instanceinfo
 - instanceedit
 - bindinglist
