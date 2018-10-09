@@ -4,7 +4,8 @@ TODO
 Functionalities
 ---------------
 
-- encapsulate version response into some kind of class
+- encapsulate version response in TSJSServerQuery.getVersion into some kind of class
+- encapsulate hostinfo response in TSJSServerQuery.getInfo into some kind of class
 
 Documentation
 -------------
