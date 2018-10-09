@@ -7,7 +7,6 @@ Functionalities
 ServerQuery commands that need implementation
 ---------------------------------------------
 
-- quit
 - version
 - hostinfo
 - instanceinfo
