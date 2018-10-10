@@ -1,8 +1,8 @@
 import TSJSError from "./Error";
 
 export default class TSJSConnectionError extends TSJSError {
-  code: string;
-  message: string;
+  public code: string;
+  public message: string;
   /**
    * Constructs an instance of TSJSConnectionError from an {@link TSJSConnectionErrorCode}
    * @constructor
@@ -17,14 +17,14 @@ export default class TSJSConnectionError extends TSJSError {
    * Gets the connection error code
    * @returns {string} actually a const string "CONERR";
    */
-  getCode() {
+  public getCode() {
     return this.code;
   }
   /**
    * Gets a really user-friendly error message
    * @returns {string} user-friendly error message
    */
-  getMessage() {
+  public getMessage() {
     return this.message;
   }
 }

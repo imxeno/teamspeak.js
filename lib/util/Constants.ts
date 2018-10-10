@@ -45,7 +45,7 @@ export const LogLevel = {
   Warning: 0x02,
   Debug: 0x03,
   Info: 0x04,
-  Development: 0x05
+  Development: 0x05,
 };
 
 /**
@@ -53,7 +53,7 @@ export const LogLevel = {
  */
 export const TokenType = {
   ServerGroup: 0x00,
-  ChannelGroup: 0x01
+  ChannelGroup: 0x01,
 };
 
 /**
@@ -65,7 +65,7 @@ export const Codec = {
   SpeexUltraWideBand: 0x02,
   CeltMono: 0x03,
   OpusVoice: 0x04,
-  OpusMusic: 0x05
+  OpusMusic: 0x05,
 };
 
 /**
@@ -74,7 +74,7 @@ export const Codec = {
 export const CodecEncryption = {
   Individual: 0x00,
   Disabled: 0x01,
-  Enabled: 0x02
+  Enabled: 0x02,
 };
 
 /**
@@ -82,7 +82,7 @@ export const CodecEncryption = {
  */
 export const KickType = {
   Channel: 0x04,
-  Server: 0x05
+  Server: 0x05,
 };
 
 /**
@@ -91,7 +91,7 @@ export const KickType = {
 export const TextMessageTarget = {
   Client: 0x01,
   Channel: 0x02,
-  Server: 0x03
+  Server: 0x03,
 };
 
 /**
@@ -101,7 +101,7 @@ export const PluginCommandTarget = {
   Channel: 0x01,
   Server: 0x02,
   Client: 0x03,
-  ChannelSubscribed: 0x04
+  ChannelSubscribed: 0x04,
 };
 
 /**
@@ -111,7 +111,7 @@ export const HostMessageMode = {
   None: 0x00,
   Log: 0x01,
   Modal: 0x02,
-  ModalQuit: 0x03
+  ModalQuit: 0x03,
 };
 
 /**
@@ -120,7 +120,7 @@ export const HostMessageMode = {
 export const HostBannerAdjustMode = {
   None: 0x00,
   IgnoreAspectRatio: 0x01,
-  KeepAspectRatio: 0x02
+  KeepAspectRatio: 0x02,
 };
 
 /**
@@ -128,7 +128,7 @@ export const HostBannerAdjustMode = {
  */
 export const ClientType = {
   Regular: 0x00,
-  ServerQuery: 0x01
+  ServerQuery: 0x01,
 };
 
 /**
@@ -137,7 +137,7 @@ export const ClientType = {
 export const GroupDBType = {
   Template: 0x00,
   Regular: 0x01,
-  ServerQuery: 0x02
+  ServerQuery: 0x02,
 };
 
 /**
@@ -146,7 +146,7 @@ export const GroupDBType = {
 export const GroupNameDisplayMode = {
   None: 0x00,
   Before: 0x01,
-  After: 0x02
+  After: 0x02,
 };
 
 /**
@@ -154,7 +154,7 @@ export const GroupNameDisplayMode = {
  */
 export const GroupIdentificationType = {
   Strongest: 0x01,
-  Weakest: 0x02
+  Weakest: 0x02,
 };
 
 /**
@@ -165,7 +165,7 @@ export const PermissionType = {
   Client: 0x01,
   Channel: 0x02,
   ChannelGroup: 0x03,
-  ChannelClient: 0x04
+  ChannelClient: 0x04,
 };
 
 /**
@@ -198,7 +198,7 @@ export const PermissionCategory = {
   ClientBasics: 0x53,
   ClientModify: 0x54,
   FileTransfer: 0x60,
-  NeededModifyPower: 0xff
+  NeededModifyPower: 0xff,
 };
 
 /**
@@ -206,7 +206,7 @@ export const PermissionCategory = {
  */
 export const FileType = {
   Directory: 0x00,
-  Regular: 0x01
+  Regular: 0x01,
 };
 
 /**
@@ -215,7 +215,7 @@ export const FileType = {
 export const SnapshotType = {
   String: 0x00,
   Base64: 0x01,
-  HexDec: 0x02
+  HexDec: 0x02,
 };
 
 /**
@@ -233,7 +233,7 @@ export const Reason = {
   Disconnect: 0x08,
   ChannelUpdate: 0x09,
   ChannelEdit: 0x0a,
-  DisconnectShutdown: 0x0b
+  DisconnectShutdown: 0x0b,
 };
 
 /**
@@ -252,5 +252,5 @@ export const EscapePatterns = [
   ["\r", "\\r"],
   ["\t", "\\t"],
   ["\v", "\\v"],
-  [" ", "\\s"]
+  [" ", "\\s"],
 ];

@@ -1,13 +1,13 @@
-import Util from "../util/Util";
 import { UnknownObject } from "../util/Types";
+import Util from "../util/Util";
 
 export default class TSJSRequest {
-  method: string;
-  args: UnknownObject;
-  options: Array<string>;
-  resolve: Function;
-  reject: Function;
-  response: Array<UnknownObject>;
+  public method: string;
+  public args: UnknownObject;
+  public options: string[];
+  public resolve: Function;
+  public reject: Function;
+  public response: UnknownObject[];
   /**
    * Constructs a new instance of TSJSRequest
    * @constructor
@@ -20,9 +20,9 @@ export default class TSJSRequest {
   constructor(
     method: string,
     args: UnknownObject,
-    options: Array<string>,
+    options: string[],
     resolve: Function,
-    reject: Function
+    reject: Function,
   ) {
     this.method = method;
     this.args = args;
@@ -35,7 +35,7 @@ export default class TSJSRequest {
    * Stringifies TSJSRequest to a form in which it can be send to ServerQuery.
    * @returns {string} stringified request
    */
-  toString() {
+  public toString() {
     const args = [];
     for (const key in this.args) {
       const value = this.args[key];
@@ -43,20 +43,20 @@ export default class TSJSRequest {
         args.push(
           value
             .map(
-              v => Util.escapeString(key) + "=" + Util.escapeString(String(v))
+              (v) => Util.escapeString(key) + "=" + Util.escapeString(String(v)),
             )
-            .join("|")
+            .join("|"),
         );
       } else {
         args.push(
-          Util.escapeString(key) + "=" + Util.escapeString(String(value))
+          Util.escapeString(key) + "=" + Util.escapeString(String(value)),
         );
       }
     }
     return (
       Util.escapeString(this.method) +
       (args.length > 0 ? " " + args.join(" ") : "") +
-      (this.options.length > 0 ? " " + this.options.map(o => "-" + o) : "")
+      (this.options.length > 0 ? " " + this.options.map((o) => "-" + o) : "")
     );
   }
 }

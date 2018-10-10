@@ -1,8 +1,8 @@
-import Util from "../util/Util";
 import { UnknownObject } from "../util/Types";
+import Util from "../util/Util";
 
 export default class TSJSResponse {
-  raw: Array<UnknownObject>;
+  public raw: UnknownObject[];
   /**
    * Constructs a new instance of TSJSResponse
    * @param {string} response string received from ServerQuery
@@ -26,28 +26,28 @@ export default class TSJSResponse {
    * Checks if this response is an error-type packet
    * @returns {boolean} if response is an error-type packet
    */
-  isError() {
+  public isError() {
     return this.rawObject().error === null;
   }
   /**
    * Checks if this response is a notify-type packet
    * @returns {boolean} if response is a notification
    */
-  isNotify() {
+  public isNotify() {
     return this.rawObject().notify === null;
   }
   /**
    * Treats the raw data as an object and returns it
    * @returns {object} raw data as object
    */
-  rawObject() {
+  public rawObject() {
     return this.raw[0];
   }
   /**
    * Treats the raw data as an array of objects
    * @returns {array} raw data as object array
    */
-  rawArray() {
+  public rawArray() {
     return this.raw;
   }
 }

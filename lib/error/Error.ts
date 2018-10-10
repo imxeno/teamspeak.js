@@ -15,7 +15,7 @@ export default class TSJSError {
      * @returns {string} pseudo error code (error code prefixed with
      *                   an identificator of the component which errored)
      */
-    getCode() {
+    public getCode() {
         throw new Error("Unimplemented");
     }
     /**
@@ -23,7 +23,7 @@ export default class TSJSError {
      * @abstract
      * @returns {string} user-friendly message describing the error
      */
-    getMessage() {
+    public getMessage() {
         throw new Error("Unimplemented");
     }
   }
