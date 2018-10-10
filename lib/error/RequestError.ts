@@ -1,12 +1,17 @@
-const TSJSError = require('./Error');
+import TSJSError from "./Error";
+import TSJSResponse from "../transport/Response";
+import { UnknownObject } from "../util/Types";
 
-class TSJSRequestError extends TSJSError {
+export default class TSJSRequestError extends TSJSError {
+  code: string;
+  message: string;
+  raw: UnknownObject;
   /**
    * Constructs an instance of TSJSRequestError from TSJSResponse
    * @constructor
    * @param {TSJSResponse} response response of error-type
    */
-  constructor(response) {
+  constructor(response: TSJSResponse) {
     super();
     const responseObject = response.rawObject();
     this.code = "SQ" + responseObject.id;
@@ -32,5 +37,3 @@ class TSJSRequestError extends TSJSError {
     return this.message;
   }
 }
-
-module.exports = TSJSRequestError;

@@ -1,7 +1,7 @@
 /**
  * @abstract
  */
-class TSJSError {
+export default class TSJSError {
     /**
      * Constructs an instance of TSJSError
      * @constructor
@@ -27,6 +27,3 @@ class TSJSError {
         throw new Error("Unimplemented");
     }
   }
-  
-  module.exports = TSJSError;
-  

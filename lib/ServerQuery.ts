@@ -1,12 +1,14 @@
-const TSJSTransportServerQuery = require("./transport/ServerQuery");
-const TSJSNodeServer = require("./node/Server");
+import TSJSTransportServerQuery from "./transport/ServerQuery";
+import TSJSNodeServer from "./node/Server";
+import { VirtualServerId, VirtualServerPort } from "./util/Types";
 
-class TSJSServerQuery extends TSJSTransportServerQuery {
+export class TSJSServerQuery extends TSJSTransportServerQuery {
+  selectedServer: Number | null;
   /**
    * Constructs a new instance of TSJSServerQuery
    * @param {object} options options to override in {@link TSJSTransportServerQuery} (defaults: {@link ServerQueryOptions})
    */
-  constructor(options) {
+  constructor(options: object) {
     super(options);
     this.selectedServer = null;
   }
@@ -17,7 +19,7 @@ class TSJSServerQuery extends TSJSTransportServerQuery {
    * @param {string} client_login_password Server Query account password
    * @returns {Promise} promise
    */
-  async login(client_login_name, client_login_password) {
+  async login(client_login_name: string, client_login_password: string) {
     await this.send("login", { client_login_name, client_login_password });
   }
 
@@ -35,9 +37,8 @@ class TSJSServerQuery extends TSJSTransportServerQuery {
    * @param {Number} sid server id
    * @returns {Promise} promise
    */
-  async selectServer(sid) {
-    sid = parseInt(sid);
-    if(this.selectedServer === sid) return;
+  async selectServer(sid: VirtualServerId) {
+    if (this.selectedServer === sid) return;
     await this.send("use", { sid });
     this.selectedServer = sid;
   }
@@ -47,8 +48,7 @@ class TSJSServerQuery extends TSJSTransportServerQuery {
    * @param {Number} sid server id
    * @returns {Promise<TSJSServer>} promise
    */
-  async getServerById(sid) {
-    sid = parseInt(sid);
+  async getServerById(sid: VirtualServerId) {
     return new TSJSNodeServer(this, sid);
   }
 
@@ -57,9 +57,10 @@ class TSJSServerQuery extends TSJSTransportServerQuery {
    * @param {Number} virtualserver_port server port
    * @returns {Promise<TSJSServer>} promise
    */
-  async getServerIdByPort(virtualserver_port) {
-    virtualserver_port = parseInt(virtualserver_port);
-    const response = await this.send("serveridgetbyport", { virtualserver_port });
+  async getServerIdByPort(virtualserver_port: VirtualServerPort) {
+    const response = await this.send("serveridgetbyport", {
+      virtualserver_port
+    });
     return response.rawObject().server_id;
   }
 
@@ -68,8 +69,7 @@ class TSJSServerQuery extends TSJSTransportServerQuery {
    * @param {Number} port server port
    * @returns {Promise<TSJSServer>} promise
    */
-  async getServerByPort(port) {
-    port = parseInt(port);
+  async getServerByPort(port: VirtualServerPort) {
     const sid = await this.getServerIdByPort(port);
     return this.getServerById(sid);
   }
@@ -81,8 +81,8 @@ class TSJSServerQuery extends TSJSTransportServerQuery {
    */
   async getServers() {
     const servers = await this.send("serverlist");
-    return servers.rawArray().map((server) => { 
-      return new TSJSNodeServer(this, parseInt(server.virtualserver_id))
+    return servers.rawArray().map((server: any) => {
+      return new TSJSNodeServer(this, parseInt(server.virtualserver_id));
     });
   }
 
@@ -130,7 +130,4 @@ class TSJSServerQuery extends TSJSTransportServerQuery {
     const response = await this.send("instanceinfo");
     return response.rawObject();
   }
-
 }
-
-module.exports = TSJSServerQuery;

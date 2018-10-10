@@ -1,23 +1,34 @@
-const net = require("net");
-const readline = require("readline");
-const EventEmitter = require("events");
+import * as net from "net";
+import * as readline from "readline";
+import * as EventEmitter from "events";
 
-const Defaults = require("../util/Defaults");
-const Util = require("../util/Util");
-const TSJSRequest = require("./Request");
-const TSJSRequestError = require("../error/RequestError");
-const TSJSResponse = require("./Response");
-const TSJSConnectionError = require("../error/ConnectionError");
+import { DefaultServerQueryOptions } from "../util/Defaults";
+import {
+  UnknownObject,
+  ServerQueryOptions,
+  PromiseInterface
+} from "../util/Types";
+import Util from "../util/Util";
+import TSJSRequest from "./Request";
+import TSJSRequestError from "../error/RequestError";
+import TSJSResponse from "./Response";
+import TSJSConnectionError from "../error/ConnectionError";
 
-class TSJSTransportServerQuery extends EventEmitter {
+export default class TSJSTransportServerQuery extends EventEmitter {
+  options: ServerQueryOptions;
+  connectionPromise: PromiseInterface | null;
+  socket: net.Socket;
+  reader: readline.ReadLine;
+  requests: Array<TSJSRequest>;
+  lineCount: number;
   /**
    * Constructs new TSJSServerQuery object
    * @constructor
    * @param {object} options options to override (defaults: {@link ServerQueryOptions})
    */
-  constructor(options) {
+  constructor(options: UnknownObject) {
     super();
-    this.options = Util.overrideOptions(options, Defaults.ServerQueryOptions);
+    this.options = Util.overrideOptions(options, DefaultServerQueryOptions);
     this.connectionPromise = null;
     this.socket = new net.Socket();
     this.socket.on("connect", () => {
@@ -55,7 +66,7 @@ class TSJSTransportServerQuery extends EventEmitter {
    * @param {string} data line
    * @returns {void}
    */
-  _onLine(data) {
+  _onLine(data: string) {
     if (data.length === 0) return;
     this.lineCount++;
     if (this.lineCount < 3) return;
@@ -81,7 +92,7 @@ class TSJSTransportServerQuery extends EventEmitter {
    * @throws {TSJSConnectionError}
    * @returns {void}
    */
-  _sendRaw(data) {
+  _sendRaw(data: Buffer | string) {
     if (data.length > 0 && data[data.length - 1] !== "\n") data += "\n";
     try {
       this.socket.write(data);
@@ -97,8 +108,12 @@ class TSJSTransportServerQuery extends EventEmitter {
    * @param {array} options options for the call
    * @returns {Promise<TSJSResponse>} promise which resolves to TSJSResponse
    */
-  async send(method, args = {}, options = []) {
-    return new Promise((resolve, reject) => {
+  async send(
+    method: string,
+    args: UnknownObject = {},
+    options: Array<string> = []
+  ): Promise<TSJSResponse> {
+    return new Promise<TSJSResponse>((resolve, reject) => {
       const startProcessing = this.requests.length === 0;
       this.requests.push(
         new TSJSRequest(method, args, options, resolve, reject)
@@ -139,12 +154,12 @@ class TSJSTransportServerQuery extends EventEmitter {
   /**
    * Socket close event handler
    * @private
-   * @param {bool} hadError if socket closed with an error
+   * @param {boolean} hadError if socket closed with an error
    * @returns {void}
    */
-  _closeHandler(hadError) {
+  _closeHandler(hadError: boolean) {
     while (this.requests.length) {
-      const request = this.requests.shift();
+      const request = <TSJSRequest>this.requests.shift();
       request.reject(new TSJSConnectionError(new Error("Socket is closed")));
     }
     if (!hadError) this.emit("disconnect");
@@ -156,7 +171,7 @@ class TSJSTransportServerQuery extends EventEmitter {
    * @param {Error} error error
    * @returns {void}
    */
-  _errorHandler(error) {
+  _errorHandler(error: Error) {
     const connectionError = new TSJSConnectionError(error);
     if (this.connectionPromise) {
       this.connectionPromise.reject(connectionError);
@@ -165,5 +180,3 @@ class TSJSTransportServerQuery extends EventEmitter {
     this.emit("disconnect", connectionError);
   }
 }
-
-module.exports = TSJSTransportServerQuery;

@@ -1,15 +1,17 @@
-const Util = require("../util/Util");
+import Util from "../util/Util";
+import { UnknownObject } from "../util/Types";
 
-class TSJSResponse {
+export default class TSJSResponse {
+  raw: Array<UnknownObject>;
   /**
    * Constructs a new instance of TSJSResponse
    * @param {string} response string received from ServerQuery
    */
-  constructor(response) {
+  constructor(response: string) {
     this.raw = [];
     const arr = response.split("|");
     for (const i in arr) {
-      const obj = {};
+      const obj: UnknownObject = {};
       const pairs = arr[i].split(" ");
       for (const k in pairs) {
         const pair = pairs[k].split("=", 2);
@@ -49,5 +51,3 @@ class TSJSResponse {
     return this.raw;
   }
 }
-
-module.exports = TSJSResponse;

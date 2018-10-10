@@ -1,45 +1,45 @@
 /**
  * TeamSpeak 3 protocol welcome message.
  */
-module.exports.TS3ProtocolIdentifier = "TS3";
+export const TS3ProtocolIdentifier = "TS3";
 
 /**
  * TeamSpeak 3 protocol greeting message prefix.
  */
-module.exports.TS3MotdPrefix = "Welcome";
+export const TS3MotdPrefix = "Welcome";
 
 /**
  * TeaSpeak protocol welcome message.
  */
-module.exports.TeaProtocolIdentifier = "TeaSpeak";
+export const TeaProtocolIdentifier = "TeaSpeak";
 
 /**
  * TeaSpeak protocol greeting message prefix.
  */
-module.exports.TS3MotdPrefix = "Welcome";
+export const TeaMotdPrefix = "Welcome";
 
 /**
  * TeamSpeak 3 protocol error message prefix.
  */
-module.exports.ErrorPrefix = "error";
+export const ErrorPrefix = "error";
 
 /**
  * TeamSpeak 3 protocol event message prefix.
  */
-module.exports.EventPrefix = "notify";
+export const EventPrefix = "notify";
 
 /**
  * TeamSpeak 3 protocol separators.
  */
-module.exports.LineSeparator = "\n";
-module.exports.ListSeparator = "|";
-module.exports.CellSeparator = " ";
-module.exports.PairSeparator = "=";
+export const LineSeparator = "\n";
+export const ListSeparator = "|";
+export const CellSeparator = " ";
+export const PairSeparator = "=";
 
 /**
  * TeamSpeak 3 log levels.
  */
-module.exports.LogLevel = {
+export const LogLevel = {
   Critical: 0x00,
   Error: 0x01,
   Warning: 0x02,
@@ -51,7 +51,7 @@ module.exports.LogLevel = {
 /**
  * TeamSpeak 3 token types.
  */
-module.exports.TokenType = {
+export const TokenType = {
   ServerGroup: 0x00,
   ChannelGroup: 0x01
 };
@@ -59,7 +59,7 @@ module.exports.TokenType = {
 /**
  * TeamSpeak 3 codec identifiers.
  */
-module.exports.Codec = {
+export const Codec = {
   SpeexNarrowBand: 0x00,
   SpeexWideBand: 0x01,
   SpeexUltraWideBand: 0x02,
@@ -71,7 +71,7 @@ module.exports.Codec = {
 /**
  * TeamSpeak 3 codec encryption modes.
  */
-module.exports.CodecEncryption = {
+export const CodecEncryption = {
   Individual: 0x00,
   Disabled: 0x01,
   Enabled: 0x02
@@ -80,7 +80,7 @@ module.exports.CodecEncryption = {
 /**
  * TeamSpeak 3 kick reason types.
  */
-module.exports.KickType = {
+export const KickType = {
   Channel: 0x04,
   Server: 0x05
 };
@@ -88,7 +88,7 @@ module.exports.KickType = {
 /**
  * TeamSpeak 3 text message target modes.
  */
-module.exports.TextMessageTarget = {
+export const TextMessageTarget = {
   Client: 0x01,
   Channel: 0x02,
   Server: 0x03
@@ -97,7 +97,7 @@ module.exports.TextMessageTarget = {
 /**
  * TeamSpeak 3 plugin command target modes.
  */
-module.exports.PluginCommandTarget = {
+export const PluginCommandTarget = {
   Channel: 0x01,
   Server: 0x02,
   Client: 0x03,
@@ -107,7 +107,7 @@ module.exports.PluginCommandTarget = {
 /**
  * TeamSpeak 3 host message modes.
  */
-module.exports.HostMessageMode = {
+export const HostMessageMode = {
   None: 0x00,
   Log: 0x01,
   Modal: 0x02,
@@ -117,7 +117,7 @@ module.exports.HostMessageMode = {
 /**
  * TeamSpeak 3 host banner modes.
  */
-module.exports.HostBannerAdjustMode = {
+export const HostBannerAdjustMode = {
   None: 0x00,
   IgnoreAspectRatio: 0x01,
   KeepAspectRatio: 0x02
@@ -126,7 +126,7 @@ module.exports.HostBannerAdjustMode = {
 /**
  * TeamSpeak 3 client identification types.
  */
-module.exports.ClientType = {
+export const ClientType = {
   Regular: 0x00,
   ServerQuery: 0x01
 };
@@ -134,7 +134,7 @@ module.exports.ClientType = {
 /**
  * TeamSpeak 3 permission group database types.
  */
-module.exports.GroupDBType = {
+export const GroupDBType = {
   Template: 0x00,
   Regular: 0x01,
   ServerQuery: 0x02
@@ -143,7 +143,7 @@ module.exports.GroupDBType = {
 /**
  * TeamSpeak 3 permission group name modes.
  */
-module.exports.GroupNameDisplayMode = {
+export const GroupNameDisplayMode = {
   None: 0x00,
   Before: 0x01,
   After: 0x02
@@ -152,7 +152,7 @@ module.exports.GroupNameDisplayMode = {
 /**
  * TeamSpeak 3 permission group identification types.
  */
-module.exports.GroupIdentificationType = {
+export const GroupIdentificationType = {
   Strongest: 0x01,
   Weakest: 0x02
 };
@@ -160,7 +160,7 @@ module.exports.GroupIdentificationType = {
 /**
  * TeamSpeak 3 permission types.
  */
-module.exports.PermissionType = {
+export const PermissionType = {
   ServerGroup: 0x00,
   Client: 0x01,
   Channel: 0x02,
@@ -171,7 +171,7 @@ module.exports.PermissionType = {
 /**
  * TeamSpeak 3 permission categories.
  */
-module.exports.PermissionCategory = {
+export const PermissionCategory = {
   Global: 0x10,
   GlobalInformation: 0x11,
   GlobalServerManagement: 0x12,
@@ -204,7 +204,7 @@ module.exports.PermissionCategory = {
 /**
  * TeamSpeak 3 file types.
  */
-module.exports.FileType = {
+export const FileType = {
   Directory: 0x00,
   Regular: 0x01
 };
@@ -212,7 +212,7 @@ module.exports.FileType = {
 /**
  * TeamSpeak 3 server snapshot types.
  */
-module.exports.SnapshotType = {
+export const SnapshotType = {
   String: 0x00,
   Base64: 0x01,
   HexDec: 0x02
@@ -221,7 +221,7 @@ module.exports.SnapshotType = {
 /**
  * TeamSpeak 3 reason identifiers.
  */
-module.exports.Reason = {
+export const Reason = {
   None: 0x00,
   Move: 0x01,
   Subscription: 0x02,
@@ -239,7 +239,7 @@ module.exports.Reason = {
 /**
  * TeamSpeak 3 string escape patterns
  */
-module.exports.EscapePatterns = [
+export const EscapePatterns = [
   ["\\", "\\\\"],
   ["/", "\\/"],
   [" ", "\\s"],

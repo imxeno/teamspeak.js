@@ -1,6 +1,13 @@
-const Util = require("../util/Util");
+import Util from "../util/Util";
+import { UnknownObject } from "../util/Types";
 
-class TSJSRequest {
+export default class TSJSRequest {
+  method: string;
+  args: UnknownObject;
+  options: Array<string>;
+  resolve: Function;
+  reject: Function;
+  response: Array<UnknownObject>;
   /**
    * Constructs a new instance of TSJSRequest
    * @constructor
@@ -10,7 +17,13 @@ class TSJSRequest {
    * @param {function} resolve Promise resolve function
    * @param {function} reject Promise reject function
    */
-  constructor(method, args, options, resolve, reject) {
+  constructor(
+    method: string,
+    args: UnknownObject,
+    options: Array<string>,
+    resolve: Function,
+    reject: Function
+  ) {
     this.method = method;
     this.args = args;
     this.options = options;
@@ -47,5 +60,3 @@ class TSJSRequest {
     );
   }
 }
-
-module.exports = TSJSRequest;

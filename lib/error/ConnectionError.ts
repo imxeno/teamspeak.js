@@ -1,15 +1,17 @@
-const TSJSError = require('./Error');
+import TSJSError from "./Error";
 
-class TSJSConnectionError extends TSJSError {
+export default class TSJSConnectionError extends TSJSError {
+  code: string;
+  message: string;
   /**
    * Constructs an instance of TSJSConnectionError from an {@link TSJSConnectionErrorCode}
    * @constructor
    * @param {Error} error native error
    */
-  constructor(error) {
-      super();
-      this.code = "CONNERR";
-      this.message = error.message;
+  constructor(error: Error) {
+    super();
+    this.code = "CONNERR";
+    this.message = error.message;
   }
   /**
    * Gets the connection error code
@@ -26,5 +28,3 @@ class TSJSConnectionError extends TSJSError {
     return this.message;
   }
 }
-
-module.exports = TSJSConnectionError;
