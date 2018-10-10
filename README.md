@@ -23,4 +23,11 @@ This library allows you to interact with TeamSpeak's Server Query interface on a
 
 ## Warning
 
-The **project** is still **incomplete** and may be missing some key features ~~(for example: _code_)~~. I would advise you **not to use it** in its current state.
+The **project** is still under **really heavy development**, which means:
+
+- it is **incomplete**
+- it may be **missing** some **key features**
+- a lot of the API **may change without any notice**
+- its documentation is not ~~perfect~~ even ready
+
+I would advise you **not to use it** in its current state as an engine for your TeamSpeak bot, and just wait for a `v0.1.x` version.
