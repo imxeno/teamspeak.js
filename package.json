@@ -23,7 +23,7 @@
     "typedoc": "typedoc --mode file --tsconfig tdconfig.json --out ./docs",
     "build": "tsc",
     "test": "mocha",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha test/*.js - - -R spec",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha test/*.js",
     "prepublish": "tsc"
   },
   "devDependencies": {
