@@ -6,9 +6,9 @@ import TSJSConnectionError from "../error/ConnectionError";
 import TSJSRequestError from "../error/RequestError";
 import { DefaultServerQueryOptions } from "../util/Defaults";
 import {
-  PromiseInterface,
+  ConnectionPromiseInterface,
   ServerQueryOptions,
-  UnknownObject,
+  UnknownObject
 } from "../util/Types";
 import Util from "../util/Util";
 import TSJSRequest from "./Request";
@@ -16,7 +16,7 @@ import TSJSResponse from "./Response";
 
 export default class TSJSTransportServerQuery extends EventEmitter {
   public options: ServerQueryOptions;
-  public connectionPromise: PromiseInterface | null;
+  public connectionPromise: ConnectionPromiseInterface | null;
   public socket: net.Socket;
   public reader: readline.ReadLine;
   public requests: TSJSRequest[];
@@ -34,14 +34,14 @@ export default class TSJSTransportServerQuery extends EventEmitter {
     this.socket.on("connect", () => {
       this._connectHandler();
     });
-    this.socket.on("close", (hadError) => {
+    this.socket.on("close", hadError => {
       this._closeHandler(hadError);
     });
-    this.socket.on("error", (err) => {
+    this.socket.on("error", err => {
       this._errorHandler(err);
     });
     this.reader = readline.createInterface(this.socket);
-    this.reader.on("line", (line) => this._onLine(line));
+    this.reader.on("line", line => this._onLine(line));
     this.requests = [];
     this.lineCount = 0;
   }
@@ -54,7 +54,7 @@ export default class TSJSTransportServerQuery extends EventEmitter {
     return new Promise((resolve, reject) => {
       this.socket.connect(
         this.options.port,
-        this.options.host,
+        this.options.host
       );
       this.connectionPromise = { resolve, reject };
     });
@@ -67,10 +67,16 @@ export default class TSJSTransportServerQuery extends EventEmitter {
    * @returns {void}
    */
   public _onLine(data: string) {
-    if (data.length === 0) { return; }
+    if (data.length === 0) {
+      return;
+    }
     this.lineCount++;
-    if (this.lineCount < 3) { return; }
-    if (this.requests.length === 0) { return; }
+    if (this.lineCount < 3) {
+      return;
+    }
+    if (this.requests.length === 0) {
+      return;
+    }
     const request = this.requests[0];
     const response = new TSJSResponse(data);
     request.response.push(response);
@@ -93,7 +99,9 @@ export default class TSJSTransportServerQuery extends EventEmitter {
    * @returns {void}
    */
   public _sendRaw(data: Buffer | string) {
-    if (data.length > 0 && data[data.length - 1] !== "\n") { data += "\n"; }
+    if (data.length > 0 && data[data.length - 1] !== "\n") {
+      data += "\n";
+    }
     try {
       this.socket.write(data);
     } catch (err) {
@@ -111,14 +119,16 @@ export default class TSJSTransportServerQuery extends EventEmitter {
   public async send(
     method: string,
     args: UnknownObject = {},
-    options: string[] = [],
+    options: string[] = []
   ): Promise<TSJSResponse> {
     return new Promise<TSJSResponse>((resolve, reject) => {
       const startProcessing = this.requests.length === 0;
       this.requests.push(
-        new TSJSRequest(method, args, options, resolve, reject),
+        new TSJSRequest(method, args, options, resolve, reject)
       );
-      if (startProcessing) { this._process(); }
+      if (startProcessing) {
+        this._process();
+      }
     });
   }
 
@@ -128,7 +138,9 @@ export default class TSJSTransportServerQuery extends EventEmitter {
    * @returns {void}
    */
   public _process() {
-    if (this.requests.length === 0) { return; }
+    if (this.requests.length === 0) {
+      return;
+    }
     const request = this.requests[0];
     try {
       this._sendRaw(request.toString());
@@ -162,7 +174,9 @@ export default class TSJSTransportServerQuery extends EventEmitter {
       const request = this.requests.shift() as TSJSRequest;
       request.reject(new TSJSConnectionError(new Error("Socket is closed")));
     }
-    if (!hadError) { this.emit("disconnect"); }
+    if (!hadError) {
+      this.emit("disconnect");
+    }
   }
 
   /**

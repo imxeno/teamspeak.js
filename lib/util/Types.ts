@@ -1,3 +1,5 @@
+import TSJSConnectionError from "../error/ConnectionError";
+
 export type VirtualServerPort = number;
 export type VirtualServerId = number;
 export interface ServerQueryOptions {
@@ -7,7 +9,7 @@ export interface ServerQueryOptions {
 export interface UnknownObject {
   [key: string]: any;
 }
-export interface PromiseInterface {
-  resolve: Function;
-  reject: Function;
+export interface ConnectionPromiseInterface {
+  resolve: () => void;
+  reject: (error: TSJSConnectionError) => void;
 }

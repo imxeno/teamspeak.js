@@ -1,13 +1,15 @@
 import { UnknownObject } from "../util/Types";
 import Util from "../util/Util";
+import TSJSResponse from "./Response";
+import TSJSError from "../error/Error";
 
 export default class TSJSRequest {
   public method: string;
   public args: UnknownObject;
   public options: string[];
-  public resolve: Function;
-  public reject: Function;
-  public response: UnknownObject[];
+  public resolve: (response: TSJSResponse) => void;
+  public reject: (error: TSJSError) => void;
+  public response: TSJSResponse[];
   /**
    * Constructs a new instance of TSJSRequest
    * @constructor
@@ -21,8 +23,8 @@ export default class TSJSRequest {
     method: string,
     args: UnknownObject,
     options: string[],
-    resolve: Function,
-    reject: Function,
+    resolve: (response: TSJSResponse) => void,
+    reject: (error: TSJSError) => void
   ) {
     this.method = method;
     this.args = args;
@@ -36,27 +38,27 @@ export default class TSJSRequest {
    * @returns {string} stringified request
    */
   public toString() {
-    const args = [];
-    for (const key in this.args) {
+    const args: string[] = [];
+    Object.keys(this.args).forEach(key => {
       const value = this.args[key];
       if (Array.isArray(value)) {
         args.push(
           value
             .map(
-              (v) => Util.escapeString(key) + "=" + Util.escapeString(String(v)),
+              v => Util.escapeString(key) + "=" + Util.escapeString(String(v))
             )
-            .join("|"),
+            .join("|")
         );
       } else {
         args.push(
-          Util.escapeString(key) + "=" + Util.escapeString(String(value)),
+          Util.escapeString(key) + "=" + Util.escapeString(String(value))
         );
       }
-    }
+    });
     return (
       Util.escapeString(this.method) +
       (args.length > 0 ? " " + args.join(" ") : "") +
-      (this.options.length > 0 ? " " + this.options.map((o) => "-" + o) : "")
+      (this.options.length > 0 ? " " + this.options.map(o => "-" + o) : "")
     );
   }
 }
