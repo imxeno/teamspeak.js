@@ -3,10 +3,7 @@ import { UnknownObject } from "./Types";
 
 export default class Util {
   /**
-   * Escapes string using {@link EscapePatterns}
-   * @static
-   * @param  {string} str a string to escape
-   * @returns {string} escaped string
+   * Escapes string using EscapePatterns
    */
   public static escapeString(str: string): string {
     let output = str;
@@ -17,10 +14,7 @@ export default class Util {
   }
 
   /**
-   * Unescapes string using {@link EscapePatterns}
-   * @static
-   * @param  {string} str a string to unescape
-   * @returns {string} unescaped string
+   * Unescapes string EscapePatterns
    */
   public static unescapeString(str: string): string {
     let output = str;
@@ -31,12 +25,7 @@ export default class Util {
   }
 
   /**
-   * Replaces all occurences of {search} in {target} with {replacement}
-   * @static
-   * @param {string} target target string
-   * @param {string} search search string
-   * @param {string} replacement replacement string
-   * @returns {string} processed string
+   * Replaces all occurences of search in target using replacements
    */
   public static replaceAll(
     target: string,
@@ -48,11 +37,6 @@ export default class Util {
 
   /**
    * Override default options with user-given ones
-   * @static
-   * @throws {Error}
-   * @param  {object} options user-given object with option overrides
-   * @param  {object} defaultOptions default options
-   * @returns {object} a copy of {defaultOptions} with altered options mentioned in {options}
    */
   public static overrideOptions<T>(
     options: UnknownObject,
@@ -73,7 +57,6 @@ export default class Util {
   }
   /**
    * This class cannot be instantiated. The constructor will always throw.
-   * @constructor
    */
   constructor() {
     throw new Error(`The Util class may not be instantiated.`);
