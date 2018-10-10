@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "lib": ["es6"],
+    "module": "commonjs"
+  },
+  "include": ["lib/ServerQuery.ts"],
+  "exclude": ["node_modules"]
+}

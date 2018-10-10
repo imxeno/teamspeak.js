@@ -12,7 +12,7 @@
   },
   "scripts": {
     "lint": "tslint --project ./",
-    "typedoc": "typedoc --out ./docs ./lib",
+    "typedoc": "typedoc --mode modules --tsconfig tdconfig.json --out ./docs",
     "build": "tsc",
     "test": "mocha",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha test/*.js - - -R spec",

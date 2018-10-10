@@ -24,8 +24,6 @@ export default class TSJSTransportServerQuery extends EventEmitter {
   public lineCount: number;
   /**
    * Constructs new TSJSServerQuery object
-   * @constructor
-   * @param {object} options options to override (defaults: {@link ServerQueryOptions})
    */
   constructor(options: UnknownObject) {
     super();
@@ -49,7 +47,6 @@ export default class TSJSTransportServerQuery extends EventEmitter {
 
   /**
    * Attempts to establish connection to the server
-   * @returns {Promise} a promise that resolves on connection or rejects on connection error
    */
   public connect(): Promise<void> {
     return new Promise<void>(
@@ -68,9 +65,6 @@ export default class TSJSTransportServerQuery extends EventEmitter {
 
   /**
    * ServerQuery socket reader line handler
-   * @private
-   * @param {string} data line
-   * @returns {void}
    */
   public _onLine(data: string): void {
     if (data.length === 0) {
@@ -99,10 +93,6 @@ export default class TSJSTransportServerQuery extends EventEmitter {
 
   /**
    * Sends raw string to the ServerQuery interface
-   * @private
-   * @param {Buffer | string} data data to send
-   * @throws {TSJSConnectionError}
-   * @returns {void}
    */
   public _sendRaw(data: Buffer | string): void {
     if (data.length > 0 && data[data.length - 1] !== "\n") {
@@ -117,10 +107,6 @@ export default class TSJSTransportServerQuery extends EventEmitter {
 
   /**
    * Sends raw string to the ServerQuery interface
-   * @param {string} method method that will be called
-   * @param {object} args arguments for the call
-   * @param {array} options options for the call
-   * @returns {Promise<TSJSResponse>} promise which resolves to TSJSResponse
    */
   public async send(
     method: string,
@@ -145,8 +131,6 @@ export default class TSJSTransportServerQuery extends EventEmitter {
 
   /**
    * Tries to process requests in request queue
-   * @private
-   * @returns {void}
    */
   public _process(): void {
     if (this.requests.length === 0) {
@@ -162,8 +146,6 @@ export default class TSJSTransportServerQuery extends EventEmitter {
 
   /**
    * Socket connect event handler
-   * @private
-   * @returns {void}
    */
   public _connectHandler(): void {
     if (this.connectionPromise) {
@@ -176,9 +158,6 @@ export default class TSJSTransportServerQuery extends EventEmitter {
 
   /**
    * Socket close event handler
-   * @private
-   * @param {boolean} hadError if socket closed with an error
-   * @returns {void}
    */
   public _closeHandler(hadError: boolean): void {
     while (this.requests.length) {
@@ -192,9 +171,6 @@ export default class TSJSTransportServerQuery extends EventEmitter {
 
   /**
    * Socket error event handler
-   * @private
-   * @param {Error} error error
-   * @returns {void}
    */
   public _errorHandler(error: Error): void {
     const connectionError = new TSJSConnectionError(error);

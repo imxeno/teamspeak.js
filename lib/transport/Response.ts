@@ -5,7 +5,6 @@ export default class TSJSResponse {
   public raw: UnknownObject[];
   /**
    * Constructs a new instance of TSJSResponse
-   * @param {string} response string received from ServerQuery
    */
   constructor(response: string) {
     this.raw = [];
@@ -24,28 +23,24 @@ export default class TSJSResponse {
   }
   /**
    * Checks if this response is an error-type packet
-   * @returns {boolean} if response is an error-type packet
    */
   public isError(): boolean {
     return this.rawObject().error === null;
   }
   /**
    * Checks if this response is a notify-type packet
-   * @returns {boolean} if response is a notification
    */
   public isNotify(): boolean {
     return this.rawObject().notify === null;
   }
   /**
-   * Treats the raw data as an object and returns it
-   * @returns {object} raw data as object
+   * Returns the raw data as an object
    */
   public rawObject(): UnknownObject {
     return this.raw[0];
   }
   /**
-   * Treats the raw data as an array of objects
-   * @returns {array} raw data as object array
+   * Returns the raw data as an array of objects
    */
   public rawArray(): UnknownObject[] {
     return this.raw;

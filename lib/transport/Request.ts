@@ -12,12 +12,6 @@ export default class TSJSRequest {
   public response: TSJSResponse[];
   /**
    * Constructs a new instance of TSJSRequest
-   * @constructor
-   * @param {string} method ServerQuery method name
-   * @param {object} args method call arguments
-   * @param {array} options method call options
-   * @param {function} resolve Promise resolve function
-   * @param {function} reject Promise reject function
    */
   constructor(
     method: string,
@@ -35,7 +29,6 @@ export default class TSJSRequest {
   }
   /**
    * Stringifies TSJSRequest to a form in which it can be send to ServerQuery.
-   * @returns {string} stringified request
    */
   public toString(): string {
     const args: string[] = [];
