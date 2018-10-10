@@ -1,5 +1,6 @@
 import { TSJSServerQuery } from "../ServerQuery";
 import { UnknownObject, VirtualServerId } from "../util/Types";
+import TSJSResponse from "../transport/Response";
 
 export default class TSJSNodeServer {
   public sq: TSJSServerQuery;
@@ -18,7 +19,7 @@ export default class TSJSNodeServer {
    * Sets the server id and gets ServerQuery interface
    * @returns {Promise<TSJSServerQuery>} ServerQuery interface
    */
-  public async getServerQuery() {
+  public async getServerQuery(): Promise<TSJSServerQuery> {
     await this.sq.selectServer(this.sid);
     return this.sq;
   }
@@ -33,8 +34,8 @@ export default class TSJSNodeServer {
   public async send(
     method: string,
     args: UnknownObject = {},
-    options: string[] = [],
-  ) {
+    options: string[] = []
+  ): Promise<TSJSResponse> {
     const sq = await this.getServerQuery();
     return sq.send(method, args, options);
   }
@@ -43,7 +44,7 @@ export default class TSJSNodeServer {
    * Starts this server instance
    * @returns {Promise} promise
    */
-  public async start() {
+  public async start(): Promise<void> {
     await this.sq.send("serverstart", { sid: this.sid });
   }
 
@@ -51,7 +52,7 @@ export default class TSJSNodeServer {
    * Stops this server instance
    * @returns {Promise} promise
    */
-  public async stop() {
+  public async stop(): Promise<void> {
     await this.sq.send("serverstop", { sid: this.sid });
   }
 }

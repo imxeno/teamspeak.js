@@ -37,15 +37,15 @@ export default class TSJSRequest {
    * Stringifies TSJSRequest to a form in which it can be send to ServerQuery.
    * @returns {string} stringified request
    */
-  public toString() {
+  public toString(): string {
     const args: string[] = [];
-    Object.keys(this.args).forEach(key => {
+    Object.keys(this.args).forEach((key: string) => {
       const value = this.args[key];
       if (Array.isArray(value)) {
         args.push(
           value
             .map(
-              v => Util.escapeString(key) + "=" + Util.escapeString(String(v))
+              (v: string) => Util.escapeString(key) + "=" + Util.escapeString(v)
             )
             .join("|")
         );
@@ -58,7 +58,9 @@ export default class TSJSRequest {
     return (
       Util.escapeString(this.method) +
       (args.length > 0 ? " " + args.join(" ") : "") +
-      (this.options.length > 0 ? " " + this.options.map(o => "-" + o) : "")
+      (this.options.length > 0
+        ? " " + this.options.map((o: string) => "-" + o)
+        : "")
     );
   }
 }

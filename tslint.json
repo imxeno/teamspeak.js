@@ -7,7 +7,19 @@
     "ordered-imports": false,
     "object-literal-sort-keys": false,
     "interface-name": false,
-    "trailing-comma": false
+    "trailing-comma": false,
+    "typedef": [
+      true,
+      "call-signature",
+      "arrow-call-signature",
+      "parameter",
+      "arrow-parameter",
+      "property-declaration",
+      "member-variable-declaration",
+      "object-destructuring",
+      "array-destructuring"
+    ],
+    "variable-name": [true, "allow-snake-case", "allow-pascal-case"]
   },
   "rulesDirectory": []
 }

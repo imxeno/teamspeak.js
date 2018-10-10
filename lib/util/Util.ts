@@ -10,7 +10,7 @@ export default class Util {
    */
   public static escapeString(str: string): string {
     let output = str;
-    Constants.EscapePatterns.forEach((pattern) => {
+    Constants.EscapePatterns.forEach((pattern: string[]) => {
       output = this.replaceAll(str, pattern[0], pattern[1]);
     });
     return output;
@@ -24,7 +24,7 @@ export default class Util {
    */
   public static unescapeString(str: string): string {
     let output = str;
-    Constants.EscapePatterns.forEach((pattern) => {
+    Constants.EscapePatterns.forEach((pattern: string[]) => {
       output = this.replaceAll(str, pattern[1], pattern[0]);
     });
     return output;
@@ -41,7 +41,7 @@ export default class Util {
   public static replaceAll(
     target: string,
     search: string,
-    replacement: string,
+    replacement: string
   ): string {
     return target.split(search).join(replacement);
   }
@@ -54,15 +54,18 @@ export default class Util {
    * @param  {object} defaultOptions default options
    * @returns {object} a copy of {defaultOptions} with altered options mentioned in {options}
    */
-  public static overrideOptions<T>(options: UnknownObject, defaultOptions: T): T {
-    Object.keys(options).forEach((key) => {
+  public static overrideOptions<T>(
+    options: UnknownObject,
+    defaultOptions: T
+  ): T {
+    Object.keys(options).forEach((key: string) => {
       if (!defaultOptions.hasOwnProperty(key)) {
         throw new Error(
           "Unknown option: '" +
             key +
             "' (legal: " +
             Object.keys(defaultOptions).join(", ") +
-            ")",
+            ")"
         );
       }
     });

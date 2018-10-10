@@ -1,12 +1,17 @@
 import TSJSNodeServer from "./node/Server";
 import TSJSTransportServerQuery from "./transport/ServerQuery";
-import { VirtualServerId, VirtualServerPort } from "./util/Types";
+import {
+  VirtualServerId,
+  VirtualServerPort,
+  UnknownObject
+} from "./util/Types";
 
 export class TSJSServerQuery extends TSJSTransportServerQuery {
-  public selectedServer: Number | null;
+  public selectedServer: number | null;
   /**
    * Constructs a new instance of TSJSServerQuery
-   * @param {object} options options to override in {@link TSJSTransportServerQuery} (defaults: {@link ServerQueryOptions})
+   * @param {object} options options to override in {@link TSJSTransportServerQuery}
+   * (defaults: {@link ServerQueryOptions})
    */
   constructor(options: object) {
     super(options);
@@ -19,7 +24,10 @@ export class TSJSServerQuery extends TSJSTransportServerQuery {
    * @param {string} client_login_password Server Query account password
    * @returns {Promise} promise
    */
-  public async login(client_login_name: string, client_login_password: string) {
+  public async login(
+    client_login_name: string,
+    client_login_password: string
+  ): Promise<void> {
     await this.send("login", { client_login_name, client_login_password });
   }
 
@@ -27,7 +35,7 @@ export class TSJSServerQuery extends TSJSTransportServerQuery {
    * Deselects the active virtual server and logs out from the server instance
    * @returns {Promise} promise
    */
-  public async logout() {
+  public async logout(): Promise<void> {
     await this.send("logout");
     this.selectedServer = null;
   }
@@ -37,8 +45,10 @@ export class TSJSServerQuery extends TSJSTransportServerQuery {
    * @param {Number} sid server id
    * @returns {Promise} promise
    */
-  public async selectServer(sid: VirtualServerId) {
-    if (this.selectedServer === sid) { return; }
+  public async selectServer(sid: VirtualServerId): Promise<void> {
+    if (this.selectedServer === sid) {
+      return;
+    }
     await this.send("use", { sid });
     this.selectedServer = sid;
   }
@@ -48,7 +58,7 @@ export class TSJSServerQuery extends TSJSTransportServerQuery {
    * @param {Number} sid server id
    * @returns {Promise<TSJSServer>} promise
    */
-  public async getServerById(sid: VirtualServerId) {
+  public async getServerById(sid: VirtualServerId): Promise<TSJSNodeServer> {
     return new TSJSNodeServer(this, sid);
   }
 
@@ -57,9 +67,11 @@ export class TSJSServerQuery extends TSJSTransportServerQuery {
    * @param {Number} virtualserver_port server port
    * @returns {Promise<TSJSServer>} promise
    */
-  public async getServerIdByPort(virtualserver_port: VirtualServerPort) {
+  public async getServerIdByPort(
+    virtualserver_port: VirtualServerPort
+  ): Promise<VirtualServerId> {
     const response = await this.send("serveridgetbyport", {
-      virtualserver_port,
+      virtualserver_port
     });
     return response.rawObject().server_id;
   }
@@ -69,7 +81,9 @@ export class TSJSServerQuery extends TSJSTransportServerQuery {
    * @param {Number} port server port
    * @returns {Promise<TSJSServer>} promise
    */
-  public async getServerByPort(port: VirtualServerPort) {
+  public async getServerByPort(
+    port: VirtualServerPort
+  ): Promise<TSJSNodeServer> {
     const sid = await this.getServerIdByPort(port);
     return this.getServerById(sid);
   }
@@ -79,10 +93,10 @@ export class TSJSServerQuery extends TSJSTransportServerQuery {
    * @param {Number} sid server id
    * @returns {Promise<Array<TSJSServer>>} promise
    */
-  public async getServers() {
+  public async getServers(): Promise<TSJSNodeServer[]> {
     const servers = await this.send("serverlist");
     return servers.rawArray().map((server: any) => {
-      return new TSJSNodeServer(this, parseInt(server.virtualserver_id));
+      return new TSJSNodeServer(this, parseInt(server.virtualserver_id, 10));
     });
   }
 
@@ -90,7 +104,7 @@ export class TSJSServerQuery extends TSJSTransportServerQuery {
    * Stops the entire TeamSpeak 3 Server instance by shutting down the process
    * @returns {Promise} promise
    */
-  public async stopProcess() {
+  public async stopProcess(): Promise<void> {
     await this.send("serverprocessstop");
   }
 
@@ -98,7 +112,7 @@ export class TSJSServerQuery extends TSJSTransportServerQuery {
    * Closes the ServerQuery connection to the TeamSpeak 3 Server instance
    * @returns {Promise} promise
    */
-  public async quit() {
+  public async quit(): Promise<void> {
     await this.send("quit");
   }
 
@@ -106,7 +120,7 @@ export class TSJSServerQuery extends TSJSTransportServerQuery {
    * Gets the servers version information including platform and build number
    * @returns {Promise<object>} promise
    */
-  public async getVersion() {
+  public async getVersion(): Promise<UnknownObject> {
     const response = await this.send("version");
     return response.rawObject();
   }
@@ -116,7 +130,7 @@ export class TSJSServerQuery extends TSJSTransportServerQuery {
    * number of virtual servers online, traffic information, etc
    * @returns {Promise<object>} promise
    */
-  public async getInfo() {
+  public async getInfo(): Promise<UnknownObject> {
     const response = await this.send("hostinfo");
     return response.rawObject();
   }
@@ -126,7 +140,7 @@ export class TSJSServerQuery extends TSJSTransportServerQuery {
    * the file transfer port, default group IDs, etc.
    * @returns {Promise<object>} promise
    */
-  public async getConfig() {
+  public async getConfig(): Promise<UnknownObject> {
     const response = await this.send("instanceinfo");
     return response.rawObject();
   }

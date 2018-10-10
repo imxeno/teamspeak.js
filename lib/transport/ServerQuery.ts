@@ -13,6 +13,7 @@ import {
 import Util from "../util/Util";
 import TSJSRequest from "./Request";
 import TSJSResponse from "./Response";
+import TSJSError from "../error/Error";
 
 export default class TSJSTransportServerQuery extends EventEmitter {
   public options: ServerQueryOptions;
@@ -34,14 +35,14 @@ export default class TSJSTransportServerQuery extends EventEmitter {
     this.socket.on("connect", () => {
       this._connectHandler();
     });
-    this.socket.on("close", hadError => {
+    this.socket.on("close", (hadError: boolean) => {
       this._closeHandler(hadError);
     });
-    this.socket.on("error", err => {
+    this.socket.on("error", (err: Error) => {
       this._errorHandler(err);
     });
     this.reader = readline.createInterface(this.socket);
-    this.reader.on("line", line => this._onLine(line));
+    this.reader.on("line", (line: string) => this._onLine(line));
     this.requests = [];
     this.lineCount = 0;
   }
@@ -50,14 +51,19 @@ export default class TSJSTransportServerQuery extends EventEmitter {
    * Attempts to establish connection to the server
    * @returns {Promise} a promise that resolves on connection or rejects on connection error
    */
-  public connect() {
-    return new Promise((resolve, reject) => {
-      this.socket.connect(
-        this.options.port,
-        this.options.host
-      );
-      this.connectionPromise = { resolve, reject };
-    });
+  public connect(): Promise<void> {
+    return new Promise<void>(
+      (
+        resolve: () => void,
+        reject: (error: TSJSConnectionError) => void
+      ): void => {
+        this.socket.connect(
+          this.options.port,
+          this.options.host
+        );
+        this.connectionPromise = { resolve, reject };
+      }
+    );
   }
 
   /**
@@ -66,7 +72,7 @@ export default class TSJSTransportServerQuery extends EventEmitter {
    * @param {string} data line
    * @returns {void}
    */
-  public _onLine(data: string) {
+  public _onLine(data: string): void {
     if (data.length === 0) {
       return;
     }
@@ -98,7 +104,7 @@ export default class TSJSTransportServerQuery extends EventEmitter {
    * @throws {TSJSConnectionError}
    * @returns {void}
    */
-  public _sendRaw(data: Buffer | string) {
+  public _sendRaw(data: Buffer | string): void {
     if (data.length > 0 && data[data.length - 1] !== "\n") {
       data += "\n";
     }
@@ -121,15 +127,20 @@ export default class TSJSTransportServerQuery extends EventEmitter {
     args: UnknownObject = {},
     options: string[] = []
   ): Promise<TSJSResponse> {
-    return new Promise<TSJSResponse>((resolve, reject) => {
-      const startProcessing = this.requests.length === 0;
-      this.requests.push(
-        new TSJSRequest(method, args, options, resolve, reject)
-      );
-      if (startProcessing) {
-        this._process();
+    return new Promise<TSJSResponse>(
+      (
+        resolve: (response: TSJSResponse) => void,
+        reject: (error: TSJSError) => void
+      ): void => {
+        const startProcessing = this.requests.length === 0;
+        this.requests.push(
+          new TSJSRequest(method, args, options, resolve, reject)
+        );
+        if (startProcessing) {
+          this._process();
+        }
       }
-    });
+    );
   }
 
   /**
@@ -137,7 +148,7 @@ export default class TSJSTransportServerQuery extends EventEmitter {
    * @private
    * @returns {void}
    */
-  public _process() {
+  public _process(): void {
     if (this.requests.length === 0) {
       return;
     }
@@ -154,7 +165,7 @@ export default class TSJSTransportServerQuery extends EventEmitter {
    * @private
    * @returns {void}
    */
-  public _connectHandler() {
+  public _connectHandler(): void {
     if (this.connectionPromise) {
       this.connectionPromise.resolve();
       this.connectionPromise = null;
@@ -169,7 +180,7 @@ export default class TSJSTransportServerQuery extends EventEmitter {
    * @param {boolean} hadError if socket closed with an error
    * @returns {void}
    */
-  public _closeHandler(hadError: boolean) {
+  public _closeHandler(hadError: boolean): void {
     while (this.requests.length) {
       const request = this.requests.shift() as TSJSRequest;
       request.reject(new TSJSConnectionError(new Error("Socket is closed")));
@@ -185,7 +196,7 @@ export default class TSJSTransportServerQuery extends EventEmitter {
    * @param {Error} error error
    * @returns {void}
    */
-  public _errorHandler(error: Error) {
+  public _errorHandler(error: Error): void {
     const connectionError = new TSJSConnectionError(error);
     if (this.connectionPromise) {
       this.connectionPromise.reject(connectionError);

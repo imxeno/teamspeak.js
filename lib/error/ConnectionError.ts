@@ -17,14 +17,14 @@ export default class TSJSConnectionError extends TSJSError {
    * Gets the connection error code
    * @returns {string} actually a const string "CONERR";
    */
-  public getCode() {
+  public getCode(): string {
     return this.code;
   }
   /**
    * Gets a really user-friendly error message
    * @returns {string} user-friendly error message
    */
-  public getMessage() {
+  public getMessage(): string {
     return this.message;
   }
 }
