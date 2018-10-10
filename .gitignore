@@ -66,3 +66,5 @@ dist/
 # Temporarily ignore examples (it is certainly not a best
 # practice but I am using this directory for testing now)
 examples/
+
+.DS_Store
