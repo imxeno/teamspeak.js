@@ -8,8 +8,6 @@ export default class TSJSRequestError extends TSJSError {
   public raw: UnknownObject;
   /**
    * Constructs an instance of TSJSRequestError from TSJSResponse
-   * @constructor
-   * @param {TSJSResponse} response response of error-type
    */
   constructor(response: TSJSResponse) {
     super();
@@ -26,14 +24,12 @@ export default class TSJSRequestError extends TSJSError {
   }
   /**
    * Gets the ServerQuery error code
-   * @returns {string} ServerQuery error code prefixed with SQ (for example SQ520)
    */
   public getCode(): string {
     return this.code;
   }
   /**
    * Gets a not-really-always-user-friendly ServerQuery error message
-   * @returns {string} not-really-always-user-friendly ServerQuery error message
    */
   public getMessage(): string {
     return this.message;

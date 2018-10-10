@@ -1,22 +1,10 @@
-/**
- * @abstract
- */
-export default class TSJSError {
+export default abstract class TSJSError {
   /**
    * Gets a unique pseudo error code.
-   * @abstract
-   * @returns {string} pseudo error code (error code prefixed with
-   *                   an identificator of the component which errored)
    */
-  public getCode(): string {
-    throw new Error("Unimplemented");
-  }
+  public abstract getCode(): string;
   /**
    * Gets a user-friendly message describing the error.
-   * @abstract
-   * @returns {string} user-friendly message describing the error
    */
-  public getMessage(): string {
-    throw new Error("Unimplemented");
-  }
+  public abstract getMessage(): string;
 }
