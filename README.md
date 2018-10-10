@@ -10,13 +10,6 @@
     </a>
     <a href='https://coveralls.io/github/imxeno/teamspeak.js?branch=experimental%2Ftypescript'>
       <img src='https://coveralls.io/repos/github/imxeno/teamspeak.js/badge.svg?branch=experimental%2Ftypescript' alt='Coverage Status' />
-    <br />
-    </a>
-    <a href="https://david-dm.org/imxeno/teamspeak.js">
-      <img src="https://david-dm.org/imxeno/teamspeak.js.svg" alt="David dependencies"/>
-    </a>
-    <a href="https://github.com/imxeno/teamspeak.js/issues">
-    	<img src="https://img.shields.io/github/issues/imxeno/teamspeak.js.svg" alt="Issues" />
     </a>
     <a href="https://github.com/imxeno/teamspeak.js/blob/master/LICENSE">
       <img src="https://img.shields.io/github/license/imxeno/teamspeak.js.svg" alt="GitHub license" />
