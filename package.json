@@ -11,6 +11,7 @@
     "node": ">=8.9.0"
   },
   "scripts": {
+    "lint": "tslint --project ./",
     "build": "tsc",
     "test": "mocha",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha test/*.js - - -R spec",
