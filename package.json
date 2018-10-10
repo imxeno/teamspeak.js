@@ -13,11 +13,14 @@
   "scripts": {
     "build": "tsc",
     "test": "mocha",
-    "prepublishOnly": "tsc"
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha test/*.js - - -R spec",
+    "prepublishOnly": "tsc",
   },
   "devDependencies": {
     "@types/node": "^10.11.6",
     "chai": "^4.2.0",
+    "coveralls": "^3.0.2",
+    "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "tsdoc": "^0.0.4",
     "typescript": "^3.1.2"
