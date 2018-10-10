@@ -2,21 +2,23 @@
   "name": "teamspeak.js",
   "version": "0.0.3",
   "description": "A powerful JavaScript library for interacting with the TeamSpeak's Server Query interface",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "repository": "https://github.com/imxeno/teamspeak.js.git",
   "author": "Piotr Adamczyk <xeno@xeno.yt>",
   "license": "Apache-2.0",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "engines": {
     "node": ">=8.9.0"
   },
   "scripts": {
     "build": "tsc",
+    "test": "mocha",
     "prepublishOnly": "tsc"
   },
   "devDependencies": {
     "@types/node": "^10.11.6",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
     "tsdoc": "^0.0.4",
     "typescript": "^3.1.2"
   },
