@@ -1,20 +1,17 @@
-TODO
-====
+# TODO
 
-Functionalities
----------------
+## Functionalities
 
+- **!!! do some coverage source mapping (?) to make viewing code coverage on coveralls possible**
 - encapsulate version response in TSJSServerQuery.getVersion into some kind of class
 - encapsulate hostinfo response in TSJSServerQuery.getInfo into some kind of class
 - encapsulate instanceinfo response in TSJSServerQuery.getConfig into some kind of class to use instanceedit
 
-Documentation
--------------
+## Documentation
 
 - add information about needed permissions for certain actions
 
-ServerQuery commands that need implementation
----------------------------------------------
+## ServerQuery commands that need implementation
 
 - instanceedit
 - bindinglist
