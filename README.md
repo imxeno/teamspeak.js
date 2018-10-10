@@ -10,7 +10,12 @@
     </a>
     <a href='https://coveralls.io/github/imxeno/teamspeak.js?branch=experimental%2Ftypescript'>
       <img src='https://coveralls.io/repos/github/imxeno/teamspeak.js/badge.svg?branch=experimental%2Ftypescript' alt='Coverage Status' />
+<<<<<<< HEAD
     <br />
+=======
+      </p>
+    <p>
+>>>>>>> cf2ab8a1b10b2b881c84cad30f6c18bdbbd3c749
     </a>
     <a href="https://david-dm.org/imxeno/teamspeak.js">
       <img src="https://david-dm.org/imxeno/teamspeak.js.svg" alt="David dependencies"/>
