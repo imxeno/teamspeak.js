@@ -16,7 +16,7 @@
     "build": "tsc",
     "test": "mocha",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha test/*.js - - -R spec",
-    "prepublishOnly": "tsc"
+    "prepublish": "tsc"
   },
   "devDependencies": {
     "@types/node": "^10.11.6",
