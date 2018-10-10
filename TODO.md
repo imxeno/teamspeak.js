@@ -8,6 +8,7 @@
 
 ## Documentation
 
+- **just fix it, it's broken _as f_**
 - add information about needed permissions for certain actions
 
 ## ServerQuery commands that need implementation
