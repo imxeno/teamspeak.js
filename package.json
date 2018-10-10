@@ -5,6 +5,14 @@
   "main": "./dist/index.js",
   "repository": "https://github.com/imxeno/teamspeak.js.git",
   "author": "Piotr Adamczyk <xeno@xeno.yt>",
+  "keywords": [
+    "teamspeak",
+    "ts3",
+    "ts",
+    "serverquery",
+    "server",
+    "query"
+  ],
   "license": "Apache-2.0",
   "types": "./dist/index.d.ts",
   "engines": {
