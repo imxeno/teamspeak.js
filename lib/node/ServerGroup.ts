@@ -1,6 +1,6 @@
 import TSJSNodeServer from "./Server";
 
-class TSJSNodeServerGroup {
+export default class TSJSNodeServerGroup {
   public server: TSJSNodeServer;
   /**
    * Constructs a new server group node
@@ -15,5 +15,3 @@ class TSJSNodeServerGroup {
     return this.server;
   }
 }
-
-module.exports = TSJSNodeServerGroup;

@@ -1,6 +1,6 @@
 import TSJSNodeServer from "./Server";
 
-class TSJSNodeChannel {
+export default class TSJSNodeChannel {
   public server: TSJSNodeServer;
   /**
    * Constructs a new channel node
@@ -15,5 +15,3 @@ class TSJSNodeChannel {
     return this.server;
   }
 }
-
-module.exports = TSJSNodeChannel;

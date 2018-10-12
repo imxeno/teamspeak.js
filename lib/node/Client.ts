@@ -1,6 +1,6 @@
 import TSJSNodeServer from "./Server";
 
-class TSJSNodeClient {
+export default class TSJSNodeClient {
   public server: TSJSNodeServer;
   /**
    * Constructs a new client node
@@ -15,5 +15,3 @@ class TSJSNodeClient {
     return this.server;
   }
 }
-
-module.exports = TSJSNodeClient;
