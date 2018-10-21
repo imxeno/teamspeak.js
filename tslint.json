@@ -19,7 +19,13 @@
       "object-destructuring",
       "array-destructuring"
     ],
-    "variable-name": [true, "allow-snake-case", "allow-pascal-case"]
+    "variable-name": [
+      true,
+      "allow-snake-case",
+      "allow-pascal-case",
+      "allow-leading-underscore"
+    ],
+    "max-line-length": false
   },
   "rulesDirectory": []
 }
