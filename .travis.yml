@@ -12,7 +12,6 @@ before_install:
   - chmod +x ts3/ts3server_startscript.sh
   - ./ts3/ts3server_startscript.sh start license_accepted=1 serveradmin_password=p4ssw0rd
   - sleep 3
-  - cat ts3/query_ip_whitelist.txt
 install:
   - yarn install
 script:
