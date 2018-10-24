@@ -18,7 +18,12 @@ describe("TSJSServerQuery constructor", () => {
 
   it("should correctly connect to a local server and login using predefined details", async () => {
     const ts = new TSJSServerQuery();
-    await ts.connect();
-    await ts.login("serveradmin", "p4ssw0rd");
+    try {
+      await ts.connect();
+      await ts.login("serveradmin", "p4ssw0rd");
+    } catch (err) {
+      throw err;
+    }
+    await ts.quit();
   });
 });
