@@ -1,10 +1,20 @@
 language: node_js
 node_js:
   - "node"
+env:
+  - TS3SERVER_LICENSE=accept
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH="$HOME/.yarn/bin:$PATH"
   - yarn --version
+  - wget http://dl.4players.de/ts/releases/3.4.0/teamspeak3-server_linux_amd64-3.4.0.tar.bz2 -O teamspeak3-server.tar.bz2
+  - tar xjf teamspeak3-server.tar.bz2
+  - rm teamspeak3-server.tar.bz2
+  - mv teamspeak3-server_linux_amd64 ts3
+  - chmod +x ts3/ts3server_startscript.sh
+  - ./ts3/ts3server_startscript.sh start
+  - sleep 3
+  - cat ts3/query_ip_whitelist.txt
 install:
   - yarn install
 script:
