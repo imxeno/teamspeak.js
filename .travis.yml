@@ -2,9 +2,11 @@ language: node_js
 node_js:
   - "node"
 before_install:
+  # Updating yarn
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH="$HOME/.yarn/bin:$PATH"
   - yarn --version
+  # Preparing brand new TeamSpeak server for our tests
   - wget http://dl.4players.de/ts/releases/3.4.0/teamspeak3-server_linux_amd64-3.4.0.tar.bz2 -O teamspeak3-server.tar.bz2
   - tar xjf teamspeak3-server.tar.bz2
   - rm teamspeak3-server.tar.bz2

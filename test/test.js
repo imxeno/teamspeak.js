@@ -16,9 +16,9 @@ describe("TSJSServerQuery constructor", () => {
     });
   });
 
-  it("should correctly override port option", () => {
-    expect(new TSJSServerQuery({ port: 10000 }).options).to.include({
-      port: 10000
-    });
+  it("should correctly connect to a local server and login using predefined details", async () => {
+    const ts = new TSJSServerQuery();
+    await ts.connect();
+    await ts.login("serveradmin", "p4ssw0rd");
   });
 });

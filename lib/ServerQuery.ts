@@ -11,7 +11,7 @@ export class TSJSServerQuery extends TSJSTransportServerQuery {
   /**
    * Constructs a new instance of TSJSServerQuery
    */
-  constructor(options: object) {
+  constructor(options: object = {}) {
     super(options);
     this.selectedServer = null;
   }
