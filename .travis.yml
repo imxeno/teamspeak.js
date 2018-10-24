@@ -12,7 +12,7 @@ before_install:
   - rm teamspeak3-server.tar.bz2
   - mv teamspeak3-server_linux_amd64 ts3
   - chmod +x ts3/ts3server_startscript.sh
-  - ./ts3/ts3server_startscript.sh start
+  - ./ts3/ts3server_startscript.sh start serveradmin_password=p4ssw0rd
   - sleep 3
   - cat ts3/query_ip_whitelist.txt
 install:
