@@ -2,6 +2,11 @@
 const expect = require("chai").expect;
 const TSJSServerQuery = require("../dist/index.js").TSJSServerQuery;
 
+const credentials = {
+  client_login_name: "serveradmin",
+  client_login_password: "p4ssw0rd"
+};
+
 describe("TSJSServerQuery constructor", () => {
   it("should throw when trying to override an unknown option", () => {
     expect(() => {
@@ -20,7 +25,40 @@ describe("TSJSServerQuery constructor", () => {
     const ts = new TSJSServerQuery();
     try {
       await ts.connect();
-      await ts.login("serveradmin", "p4ssw0rd");
+      await ts.login(
+        credentials.client_login_name,
+        credentials.client_login_password
+      );
+    } catch (err) {
+      throw err;
+    }
+    await ts.quit();
+  });
+
+  it("should be able to select a server by id", async () => {
+    const ts = new TSJSServerQuery();
+    try {
+      await ts.connect();
+      await ts.login(
+        credentials.client_login_name,
+        credentials.client_login_password
+      );
+      await ts.getServerById(1);
+    } catch (err) {
+      throw err;
+    }
+    await ts.quit();
+  });
+
+  it("should be able to select a server by default port", async () => {
+    const ts = new TSJSServerQuery();
+    try {
+      await ts.connect();
+      await ts.login(
+        credentials.client_login_name,
+        credentials.client_login_password
+      );
+      await ts.getServerByPort(9967);
     } catch (err) {
       throw err;
     }
