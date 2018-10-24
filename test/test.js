@@ -58,7 +58,7 @@ describe("TSJSServerQuery constructor", () => {
         credentials.client_login_name,
         credentials.client_login_password
       );
-      await ts.getServerByPort(9967);
+      await ts.getServerByPort(9987);
     } catch (err) {
       throw err;
     }
