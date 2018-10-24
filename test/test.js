@@ -58,7 +58,7 @@ describe("TSJSServerQuery constructor", () => {
         credentials.client_login_name,
         credentials.client_login_password
       );
-      expect(await ts.getServers()).length.to.be(1);
+      expect((await ts.getServers()).length).to.be.equal(1);
     } catch (err) {
       throw err;
     }
