@@ -25,9 +25,7 @@ describe("TSJSServerQuery", () => {
       credentials.client_login_password
     );
     console.log(
-      "    " +
-        chalk.green("✓") +
-        chalk.grey(" TeamSpeak 3 server instance has been started!")
+      chalk.grey("    TeamSpeak 3 server instance has been started!")
     );
   });
 
@@ -156,9 +154,7 @@ describe("TSJSServerQuery", () => {
     );
     realServer.stopServer(serverPath);
     console.log(
-      "    " +
-        chalk.green("✓") +
-        chalk.grey(" TeamSpeak 3 server instance has been killed and removed!")
+      chalk.grey("    TeamSpeak 3 server instance has been killed and removed!")
     );
   });
 });
