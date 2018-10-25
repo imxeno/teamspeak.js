@@ -47,7 +47,7 @@ module.exports = {
     fs.chmodSync(path.resolve(serverPath, "./ts3server"), "744");
     fs.writeFileSync(path.resolve(serverPath, "./.ts3server_license_accepted"));
     shelljs.exec(
-      "cd " +
+      'export LD_LIBRARY_PATH="${LIBRARYPATH}:${LD_LIBRARY_PATH}" &&	cd ' +
         path.resolve(serverPath) +
         " && ./ts3server license_accepted=1 serveradmin_password=" +
         serveradmin_password +
