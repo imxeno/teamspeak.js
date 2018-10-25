@@ -42,6 +42,17 @@ describe("TSJSServerQuery", () => {
     });
   });
 
+  it("should throw when it gets a connection error", async () => {
+    const ts = new TSJSServerQuery({ host: "a.host.which.does.not.exist" });
+    try {
+      await ts.connect();
+      throw new Error("Something went wrong");
+    } catch (err) {
+      expect(err.getCode()).to.be.equal("CONNERR");
+      expect(err.getMessage()).to.contain("getaddrinfo ENOTFOUND");
+    }
+  });
+
   it("should connect to a local server and login using predefined details", async () => {
     const ts = new TSJSServerQuery();
     try {

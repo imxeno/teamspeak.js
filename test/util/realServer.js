@@ -62,6 +62,7 @@ module.exports = {
       "kill -KILL $(cat " + path.resolve(serverPath, "./ts3server.pid") + ")",
       { async: true, silent: true }
     );
+    await new Promise(resolve => setTimeout(resolve, 5000));
     shelljs.rm("-R", path.resolve(serverPath));
   }
 };
