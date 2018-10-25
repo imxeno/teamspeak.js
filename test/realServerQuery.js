@@ -1,4 +1,5 @@
 "use strict";
+const chalk = require("chalk");
 const expect = require("chai").expect;
 const TSJSServerQuery = require("../dist/index.js").TSJSServerQuery;
 const realServer = require("./util/realServer");
@@ -13,7 +14,9 @@ describe("TSJSServerQuery", () => {
   before(async function() {
     this.timeout(60000);
     console.log(
-      "Downloading and starting a local TeamSpeak 3 server instance..."
+      chalk.grey(
+        "    Downloading and starting a local TeamSpeak 3 server instance..."
+      )
     );
     await realServer.startServer(
       serverPath,
@@ -21,7 +24,11 @@ describe("TSJSServerQuery", () => {
       process.env.VERSION,
       credentials.client_login_password
     );
-    console.log("TeamSpeak 3 server instance has been started!");
+    console.log(
+      "    " +
+        chalk.green("✓") +
+        chalk.grey(" TeamSpeak 3 server instance has been started!")
+    );
   });
 
   it("should throw when trying to override an unknown option", () => {
@@ -144,8 +151,14 @@ describe("TSJSServerQuery", () => {
   });
 
   after(() => {
-    console.log("Killing and removing TeamSpeak 3 server instance...");
+    console.log(
+      chalk.grey("    Killing and removing TeamSpeak 3 server instance...")
+    );
     realServer.stopServer(serverPath);
-    console.log("TeamSpeak 3 server instance has been killend and removed!");
+    console.log(
+      "    " +
+        chalk.green("✓") +
+        chalk.grey(" TeamSpeak 3 server instance has been killed and removed!")
+    );
   });
 });
