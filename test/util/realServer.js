@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const request = require("request-promise");
 const shelljs = require("shelljs");
 const os = require("os");
 
