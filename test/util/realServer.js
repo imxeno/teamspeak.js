@@ -36,11 +36,11 @@ module.exports = {
         (zip ? "zip" : "tar.bz2") +
         " -O " +
         "teamspeak3-server.temp",
-      { silent: true }
+      {}
     );
 
     if (zip) shelljs.exec("unzip teamspeak3-server.temp", { silent: true });
-    else shelljs.exec("tar xjf teamspeak3-server.temp", { silent: true });
+    else shelljs.exec("tar xjf teamspeak3-server.temp", {});
 
     fs.unlinkSync("teamspeak3-server.temp");
     shelljs.mv(path.resolve("./teamspeak3-server_*"), path.resolve(serverPath));
@@ -53,7 +53,7 @@ module.exports = {
         serveradmin_password +
         " > /dev/null & echo $! > " +
         path.resolve(serverPath, "./ts3server.pid"),
-      { async: true, silent: true }
+      { async: true }
     );
     await new Promise(resolve => setTimeout(resolve, 5000));
   },
