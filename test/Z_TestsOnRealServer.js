@@ -10,7 +10,7 @@ const credentials = {
   client_login_password: "p4ssw0rd"
 };
 
-describe("TSJSServerQuery", () => {
+describe("Real server test", () => {
   before(async function() {
     this.timeout(60000);
     console.log(
@@ -27,30 +27,6 @@ describe("TSJSServerQuery", () => {
     console.log(
       chalk.grey("    TeamSpeak 3 server instance has been started!")
     );
-  });
-
-  it("should throw when trying to override an unknown option", () => {
-    expect(() => {
-      new TSJSServerQuery({ anUnknownOption: "nobody cares" });
-    }).to.throw("Unknown option");
-  });
-
-  it("should override host option and preserve default port", () => {
-    expect(new TSJSServerQuery({ host: "example.com" }).options).to.include({
-      host: "example.com",
-      port: 10011
-    });
-  });
-
-  it("should throw when it gets a connection error", async () => {
-    const ts = new TSJSServerQuery({ host: "a.host.which.does.not.exist" });
-    try {
-      await ts.connect();
-      throw new Error("Something went wrong");
-    } catch (err) {
-      expect(err.getCode()).to.be.equal("CONNERR");
-      expect(err.getMessage()).to.contain("getaddrinfo ENOTFOUND");
-    }
   });
 
   it("should connect to a local server and login using predefined details", async () => {
@@ -76,6 +52,17 @@ describe("TSJSServerQuery", () => {
         credentials.client_login_password
       );
       await ts.logout();
+    } catch (err) {
+      throw err;
+    }
+    await ts.quit();
+  });
+
+  it("should throw request error when permissions are insufficient", async () => {
+    const ts = new TSJSServerQuery();
+    try {
+      await ts.connect();
+      await ts.getServers();
     } catch (err) {
       throw err;
     }
