@@ -5,12 +5,12 @@ const os = require("os");
 
 const getPlatform = () => {
   const platform = os.platform();
+  const arch = os.arch() === "x64" ? "amd64" : "x86";
   if (platform === "darwin") return "mac";
   if (platform === "win32") {
     if (arch === "x64") return "win64";
     return "win32";
   }
-  const arch = os.arch() === "x64" ? "amd64" : "x86";
   return platform + "_" + arch;
 };
 
