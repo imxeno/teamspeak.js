@@ -3,7 +3,7 @@
 # This script works only with Linux and Mac OS because Windows doesn't have bash.
 
 DOWNLOAD=false
-SERVER_PATH=/tmp/ts3
+SERVER_PATH=/tmp/ts3server
 VERSION=
 
 while getopts "dv:p:" arg; do
