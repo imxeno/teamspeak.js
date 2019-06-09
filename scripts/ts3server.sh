@@ -2,12 +2,10 @@
 # This script can download, start, stop, restart and print status of TeamSpeak 3 server.
 # This script works only with Linux and Mac OS because Windows doesn't have bash.
 
-# Init option variables
 DOWNLOAD=false
 SERVER_PATH=/tmp/ts3
 VERSION=
 
-# Check for option existence and update its variable
 while getopts "dv:p:" arg; do
 	case "${arg}" in
 		d)
@@ -23,15 +21,12 @@ while getopts "dv:p:" arg; do
 done
 shift $((OPTIND-1))
 
-# Fixing ending of SERVER_PATH to exclude '/' from the end.
 [[ ${SERVER_PATH} = */ ]] && SERVER_PATH=${SERVER_PATH%?}
 
-# Init rest of the variables
 FILE_NAME="teamspeak3-server.temp"
 PID_FILE=${SERVER_PATH}/ts3server.pid
 BINARY=${SERVER_PATH}/ts3server
 
-# Init platform specifc variables
 if [[ $OSTYPE == "linux-gnu" ]]; then
     if [[ $(uname -m) == "x86_64" ]]; then ARCH="x86_64"; ARCH_STR="_amd64";
     else ARCH="x86"; ARCH_STR="_x86"; fi
@@ -49,7 +44,6 @@ elif [[ $OSTYPE == "darwin" ]]; then
     EXT=".zip"
 fi
 
-# Init useful functions
 usage() {
     echo "Usage: ./ts3server.sh [SCRIPT_OPTIONS]... {start|stop|restart|status} [START_OPTIONS]..."
     echo "  script_options:"
@@ -82,7 +76,7 @@ get_server_download_link() {
 download_server_archive() {
     local DOWNLOAD_LINK=
 
-    if [[ -z $VERSION ]]; then
+    if [[ -z ${VERSION} ]]; then
         local DOWNLOAD_LINK=$(get_latest_server_download_link)
     else
         local DOWNLOAD_LINK=$(get_server_download_link)
@@ -115,7 +109,6 @@ accept_license() {
     touch ${SERVER_PATH}/.ts3server_license_accepted
 }
 
-# Init TeamSpeak 3 server control functions
 start_server() {
     if [[ -e ${PID_FILE} ]]; then
         local PID=$(cat ${PID_FILE})
@@ -225,7 +218,6 @@ get_server_status() {
 }
 
 if [[ $1 == "start" || $1 == "stop" || $1 == "restart" || $1 == "status" ]]; then
-    # Download server if doesn't exist and -d flag is specified
     if [[ ! -d ${SERVER_PATH} && ${DOWNLOAD} = true ]]; then
         mkdir -p ${SERVER_PATH}
 
